@@ -2,15 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Eredita la configurazione base di Spring Boot -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.moscadanilo</groupId>
-	<artifactId>libreria</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Coordinate del progetto -->
+	<groupId>com.moscadanilo</groupId>	<!-- azienda/organizzazione -->
+	<artifactId>libreria</artifactId>	<!-- nome del progetto -->
+	<version>0.0.1-SNAPSHOT</version>	<!-- versione corrente -->
 	<name/>
 	<description/>
 	<url/>
@@ -27,20 +31,33 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>25</java.version>
+		<java.version>25</java.version>			<!-- versione Java da usare -->
 	</properties>
+
+	<!-- Le dipendenze del progetto -->
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
+		<!-- Starter per API REST (include Tomcat + Spring MVC + Jackson) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+		<!-- Riavvio automatico durante lo sviluppo -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Dipendenze per i test (JUnit 5, Mockito) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
@@ -48,6 +65,7 @@
 		</dependency>
 	</dependencies>
 
+	<!-- Plugin per creare il fat JAR eseguibile -->
 	<build>
 		<plugins>
 			<plugin>
