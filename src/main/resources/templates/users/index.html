@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Users</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('users')}"></nav>
+
+    <div class="container">
+        <h1>Users</h1>
+        <hr />
+
+    </div>
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+
+</html>
