@@ -37,11 +37,11 @@ public class Book {
     @Column(nullable = false)
     private Integer pages;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)    // salva il nome dell'enum come stringa ("INDOOR"/"OUTDOOR")
     @Column(nullable = false)
     private Genre genre;
 
-    // ── Relazione: molte Book → un User ──────────────────────────────────────
+    // ── Relazione: molte Book → un User (relazione molti a uno) ──────────────────────────────────────
     @ManyToOne
     @JoinColumn(name = "user_id")  // nome della FK nella tabella Books
     //Oppure anche  @JoinColumn(name = "user_id", nullable = true)

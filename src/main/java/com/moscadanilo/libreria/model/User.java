@@ -26,7 +26,7 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    // ── Relazione inversa: un User → molti Book ──────────────────────────────
+    // ── Relazione inversa: un User → molti Book (relazione uno a molti) ──────────────────────────────
     @OneToMany(mappedBy = "user", // nome del campo @ManyToOne in Book
             cascade = { CascadeType.PERSIST, CascadeType.MERGE } // operazioni propagate ai figli
     )
