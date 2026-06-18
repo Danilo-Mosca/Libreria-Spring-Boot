@@ -28,7 +28,7 @@ public class User {
 
     // ── Relazione inversa: un User → molti Book (relazione uno a molti) ──────────────────────────────
     @OneToMany(mappedBy = "user", // nome del campo @ManyToOne in Book
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE } // operazioni propagate ai figli
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE } // operazioni propagate ai figli. Perché non voglio che cancellando un user vengano cancellati anche tutti i suoi libri
     )
     private List<Book> books = new ArrayList<>();
 
