@@ -123,7 +123,8 @@ public class Book {
         this.description = description;
     }
 
-    //Getter e setter di User per la relazione many to 1
+    // Getter e setter di User per la relazione many to 1. Detti anche "metodi helper"
+    // Utente associato a quel libro prenotato. Sempre se il libro è stato prenotato da qualche utente
     public User getUser() {
         return user;
     }
@@ -131,6 +132,7 @@ public class Book {
     public void setUser(User user) {
         this.user = user;
     }
+    // ----------------------
 
     // Override del metodo toString() aggiornato
     @Override

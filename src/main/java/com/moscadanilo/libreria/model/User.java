@@ -27,7 +27,8 @@ public class User {
     private String lastName;
 
     // ── Relazione inversa: un User → molti Book (relazione uno a molti) ──────────────────────────────
-    @OneToMany(mappedBy = "user", // nome del campo @ManyToOne in Book
+    @OneToMany(
+            mappedBy = "user", // nome del campo @ManyToOne in Book
             cascade = { CascadeType.PERSIST, CascadeType.MERGE } // operazioni propagate ai figli. Perché non voglio che cancellando un user vengano cancellati anche tutti i suoi libri
     )
     private List<Book> books = new ArrayList<>();
@@ -63,8 +64,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    // Getter e setter di Book per la relazione 1 to many
-
+    // Getter e setter di Book per la relazione 1 to many. Detti anche "metodi helper"
     // Lo userò per leggere i libri associati con quell'utente user.getBooks()
     public List<Book> getBooks() {
         return books;
@@ -73,6 +73,7 @@ public class User {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+    // ----------------------
 
     // Override del metodo toString() aggiornato
     @Override
