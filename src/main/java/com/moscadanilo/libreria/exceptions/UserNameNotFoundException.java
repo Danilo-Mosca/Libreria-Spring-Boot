@@ -1,4 +1,4 @@
-package com.example.libreria.exceptions;
+package com.moscadanilo.libreria.exceptions;
 
 public class UserNameNotFoundException extends RuntimeException {
 

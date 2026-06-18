@@ -1,4 +1,4 @@
-package com.example.libreria.exceptions;
+package com.moscadanilo.libreria.exceptions;
 
 // Estende RuntimeException: eccezione non verificata (unchecked)
 public class BookTitleNotFoundException extends RuntimeException {

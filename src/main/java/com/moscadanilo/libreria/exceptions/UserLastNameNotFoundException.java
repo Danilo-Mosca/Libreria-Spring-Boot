@@ -1,4 +1,4 @@
-package com.example.libreria.exceptions;
+package com.moscadanilo.libreria.exceptions;
 
 public class UserLastNameNotFoundException extends RuntimeException {
 

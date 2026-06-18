@@ -1,6 +1,6 @@
-package com.example.libreria.exceptions;
+package com.moscadanilo.libreria.exceptions;
 
-import com.example.libreria.model.Genre;
+import com.moscadanilo.libreria.model.Genre;
 
 //Eccezione non controllata
 public class BookGenreNotFoundException extends RuntimeException {

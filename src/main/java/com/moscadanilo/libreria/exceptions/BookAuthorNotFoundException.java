@@ -1,4 +1,4 @@
-package com.example.libreria.exceptions;
+package com.moscadanilo.libreria.exceptions;
 
 //Eccenzione non controllata
 public class BookAuthorNotFoundException extends RuntimeException {

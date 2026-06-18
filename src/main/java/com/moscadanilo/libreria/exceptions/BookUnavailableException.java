@@ -1,4 +1,4 @@
-package com.example.libreria.exceptions;
+package com.moscadanilo.libreria.exceptions;
 
 //Eccezioni business logic
 public class BookUnavailableException extends RuntimeException {
