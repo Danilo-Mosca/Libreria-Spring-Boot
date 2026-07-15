@@ -147,5 +147,11 @@ public class Book {
                 ", available=" + available +
                 ", description=" + description +
                 '}';
+        /* Oppure avrei potuto scrivere così: 
+        return String.format(
+                "%d: Title: %s, Author: %s, Anno di pubblicazionne: %d, Pagine: %d, Genere: %s, Disponibilità: %b, Descrizione: %s",
+                this.id, this.title, this.author, this.yearOfPublication, this.pages, this.genre, this.available,
+                this.description);
+        */
     }
 }
