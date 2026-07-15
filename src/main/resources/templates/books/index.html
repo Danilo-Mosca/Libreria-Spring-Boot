@@ -13,7 +13,38 @@
         <h1>Books</h1>
         <hr />
 
-        <p th:text="${books}"></p>
+        <section class="row">
+            <div class="col-12">
+                <table class="table" th:if="${books.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Titolo</th>
+                            <th>Autore</th>
+                            <th>Anno di pubblicazione</th>
+                            <th>Numero di pagine</th>
+                            <th>Genere</th>
+                            <th>Disponibilità</th>
+                            <th>Descrizione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="book : ${books}" th:object="${book}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{title}]]</td>
+                            <td>[[*{author}]]</td>
+                            <td>[[*{yearOfPublication}]]</td>
+                            <td th:text="*{pages}"></td>
+                            <td th:text="*{genre}"></td>
+                            <td th:text="*{available}"></td>
+                            <td th:text="*{description}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p th:text="Non ci sono libri in biblioteca in questo momento..." th:unless="${books.size() > 0}"></p>
+            </div>
+
+        </section>
         
     </div>
 
