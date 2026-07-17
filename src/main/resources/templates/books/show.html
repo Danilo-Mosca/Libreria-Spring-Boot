@@ -3,50 +3,30 @@
 
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
-    <title>Pagina dettagli libro</title>
+    <title>Pagina dettagli libro [[${book.title}]]</title>
 </head>
 
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('book')}"></nav>
 
     <div class="container">
-        <h1>Sigle book</h1>
-        <hr />
-
+        
         <section class="row">
             <div class="col-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Titolo</th>
-                            <th>Autore</th>
-                            <th>Anno di pubblicazione</th>
-                            <th>Numero di pagine</th>
-                            <th>Genere</th>
-                            <th>Disponibilità</th>
-                            <th>Descrizione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>[[${book.id}]]</td>
-                            <td>[[${book.title}]]</td>
-                            <td>[[${book.author}]]</td>
-                            <td>[[${book.yearOfPublication}]]</td>
-                            <td th:text="${book.pages}"></td>
-                            <td th:text="${book.genre}"></td>
-                            <td th:text="${book.available}"></td>
-                            <td th:text="${book.description}"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h1 class="fw-bold mb-3">Libro: [[${book.title}]]</h1>
+                <h2 class="mb-3">Scritto da [[${book.author}]]</h2>
+                <hr />
+                <h3 class="mb-3">Anno di pubblicazione: [[${book.yearOfPublication}]]</h3>
+                <h4 class="mb-3">Numero di pagine: [[${book.pages}]]</h4>
+                <h5 class="mb-3">Genere: [[${book.genre}]]</h5>
+                <h5 class="mb-3">Disponibilità: [[${book.available}]]</h5>
+                <hr />
+                <p th:text="${book.description}"></p>
                 
-                <!-- Oppure così:
+                <!-- Oppure soltanto così:
                 <p>[[${book}]]</p>
                 <p th:text="${book}"></p> -->
             </div>
-
         </section>
 
     </div>
