@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Pagina dettagli libro</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('book')}"></nav>
+
+    <div class="container">
+        <h1>Sigle book</h1>
+        <hr />
+
+        <section class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Titolo</th>
+                            <th>Autore</th>
+                            <th>Anno di pubblicazione</th>
+                            <th>Numero di pagine</th>
+                            <th>Genere</th>
+                            <th>Disponibilità</th>
+                            <th>Descrizione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[[${book.id}]]</td>
+                            <td>[[${book.title}]]</td>
+                            <td>[[${book.author}]]</td>
+                            <td>[[${book.yearOfPublication}]]</td>
+                            <td th:text="${book.pages}"></td>
+                            <td th:text="${book.genre}"></td>
+                            <td th:text="${book.available}"></td>
+                            <td th:text="${book.description}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Oppure così:
+                <p>[[${book}]]</p>
+                <p th:text="${book}"></p> -->
+            </div>
+
+        </section>
+
+    </div>
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+
+</html>

@@ -36,7 +36,7 @@ public class BookController {
     }
 
     // Ritorna i libri per id
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")    // localhost:8080/books/id
     public String show(@PathVariable("id") Integer id, Model model){
         model.addAttribute("book", bookRepository.findById(id).get());
         return "/books/show";
