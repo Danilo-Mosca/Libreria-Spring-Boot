@@ -37,4 +37,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     @Query("SELECT r FROM Book r WHERE LOWER(r.author) = LOWER(:author) AND LOWER(r.title) = LOWER(:title) ORDER BY r.author ASC")
     Optional<Book> findBookByAuthorAndTitle(@Param("author") String author, @Param("title") String title);
+
+    // Metodo che recupera un libro che contiene nel suo titolo la stringa passata
+    // dall'utente
+    public List<Book> findByTitleContaining(String title);
 }
