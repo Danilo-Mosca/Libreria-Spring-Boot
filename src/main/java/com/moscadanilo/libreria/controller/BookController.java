@@ -43,10 +43,22 @@ public class BookController {
         return "/books/show";
     }
 
-    // GET cerca per query il libro contentente come titolo la stringa passata come parametro
-    @GetMapping("/searchbytitle")
+    // GET cerca per query il libro o i libri contentente come titolo la stringa passata come parametro
+    @GetMapping("/searchbytitle") // Esempio http://localhost:8080/books/searchbytitle?title=design%20patt -----> il sistema troverà il o i libri con titolo "Design Patt", che nel nostro caso sarà Design Pattern
     public String searchByTitle(@RequestParam(name = "title") String title, Model model) {
         List<Book> books = bookRepository.findByTitleContaining(title);
+        model.addAttribute("books", books);
+        return "/books/index";
+    }
+
+    // GET cerca per query il libro o i libri contentente come titolo "o" come nome autore la stringa passata come parametro
+    @GetMapping("/searchbytitleorauthor")   
+    // Esempio con titolo passato come query string:
+    // http://localhost:8080/books/searchbytitleorauthor?query=design%20patt -----> il sistema troverà il o i libri con titolo "Design Patt", che nel nostro caso sarà Design Pattern
+    // Esempio con autore passato come query string:
+    // http://localhost:8080/books/searchbytitleorauthor?query=Dan Brown -----> il sistema troverà il o i libri che hanno come autore "Dan Brown"
+    public String searchByTitleOrAuthor(@RequestParam(name = "query") String query, Model model) {
+        List<Book> books = bookRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(query, query);
         model.addAttribute("books", books);
         return "/books/index";
     }
