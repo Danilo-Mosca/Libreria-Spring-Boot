@@ -5,13 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moscadanilo.libreria.model.Book;
 import com.moscadanilo.libreria.repository.BookRepository;
+
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/books")
@@ -67,5 +75,16 @@ public class BookController {
     public String create(Model model){
         model.addAttribute("book", new Book());
         return "/books/create";
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
+        // Se ho degli errori ritorno la pagina create con gli errori
+        if (bindingResult.hasErrors()) {
+            return "/books/create";
+        }
+        // Altrimenti salvo il libro sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
+        bookRepository.save(formBook);
+        return "redirect:/books";
     }
 }
