@@ -62,4 +62,10 @@ public class BookController {
         model.addAttribute("books", books);
         return "/books/index";
     }
+
+    @GetMapping("/create")
+    public String create(Model model){
+        model.addAttribute("book", new Book());
+        return "/books/create";
+    }
 }

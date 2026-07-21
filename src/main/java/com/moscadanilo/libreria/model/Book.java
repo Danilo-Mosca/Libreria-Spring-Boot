@@ -48,7 +48,12 @@ public class Book {
     private User user;
 
     // Costruttore no-arg
+    /* LO COMMENTO PROVVISORIAMENTE USANDO UN COSTRUTTORE SENZA ARGOMENTI PUBBLICO
     protected Book() {
+    }
+    */
+    // Costruttore no-arg pubblico (provvisorio)
+    public Book() {
     }
 
     // Costruttore completo per uso applicativo
