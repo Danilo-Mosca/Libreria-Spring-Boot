@@ -19,7 +19,45 @@
                     </h1>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <h2>Form di inserimento</h2>
+                            <form id="book-form" action="@{/books/create}" method="post" th:object="${book}">
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="title">Inserisci il titolo del libro</label>
+                                    <input type="text" class="form-input" name="title" id="title">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="author">Inserisci l'autore del libro</label>
+                                    <input type="text" class="form-input" name="author" id="author">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="yearOfPublication">Inserisci la data di pubblicazione del libro</label>
+                                    <input type="text" class="form-input" name="yearOfPublication" id="yearOfPublication" min="1500"
+                                        max="2026" step="1" value="2026" placeholder="AAAA">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="pages" name="pages" id="pages" step="1">Inserisci il numero di
+                                        pagine</label>
+                                    <input type="number" name="pages" id="pages">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="genre">Seleziona il genere del film</label>
+                                    <input type="checkbox" class="form-input" name="genre" id="genre">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="available">Disponibilità</label>
+                                    <input type="radio" class="form-input" name="available" id="available">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="description">Descrizione del libro</label>
+                                    <textarea name="description" class="form-input" id="description"></textarea>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </th:block>
