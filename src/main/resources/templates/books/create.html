@@ -19,43 +19,51 @@
                     </h1>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <form id="book-form" action="@{/books/create}" method="post" th:object="${book}">
+                            <form id="book-form" th:action="@{/books/create}" method="post" th:object="${book}">
 
                                 <div class="mb-3">
                                     <label class="form-label" for="title">Inserisci il titolo del libro</label>
-                                    <input type="text" class="form-input" name="title" id="title">
+                                    <input type="text" class="form-control" name="title" id="title" th:field="*{title}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="author">Inserisci l'autore del libro</label>
-                                    <input type="text" class="form-input" name="author" id="author">
+                                    <input type="text" class="form-control" name="author" id="author" th:field="*{author}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="yearOfPublication">Inserisci la data di pubblicazione del libro</label>
-                                    <input type="text" class="form-input" name="yearOfPublication" id="yearOfPublication" min="1500"
-                                        max="2026" step="1" value="2026" placeholder="AAAA">
+                                    <input type="number" class="form-control" name="yearOfPublication" id="yearOfPublication" min="1500"
+                                        max="2026" step="1" value="2026" placeholder="AAAA" th:field="*{yearOfPublication}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="pages" name="pages" id="pages" step="1">Inserisci il numero di
-                                        pagine</label>
-                                    <input type="number" name="pages" id="pages">
+                                    <label class="form-label" for="pages">Inserisci il numero di pagine</label>
+                                    <input type="number" class="form-control" min="3" step="1" name="pages" id="pages" th:field="*{pages}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="genre">Seleziona il genere del film</label>
-                                    <input type="checkbox" class="form-input" name="genre" id="genre">
+                                    <label class="form-label" for="genre">Seleziona il genere del libro</label>
+                                    <select class="form-select" name="genre" id="genre" th:field="*{genre}">
+                                        <option value="Fantasy">Fantasy</option>
+                                        <option value="Giallo">Giallo</option>
+                                        <option value="Romanzo">Romanzo</option>
+                                    </select>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="available">Disponibilità</label>
-                                    <input type="radio" class="form-input" name="available" id="available">
+                                    <input type="checkbox" class="form-check-input" name="available" id="available" th:field="*{available}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="description">Descrizione del libro</label>
-                                    <textarea name="description" class="form-input" id="description"></textarea>
+                                    <textarea name="description" class="form-control" id="description" th:field="*{description}"></textarea>
+                                </div>
+
+                                <div class="mb-3 d-flex justify-content-between">
+                                    <input type="submit" class="btn btn-primary" value="Inserisci nuovo libro">
+                                    <input type="reset" class="btn btn-warning" value="Azzera i campi">
                                 </div>
                             </form>
                         </div>
