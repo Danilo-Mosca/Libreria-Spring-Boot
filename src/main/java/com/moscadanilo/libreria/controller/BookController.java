@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moscadanilo.libreria.model.Book;
+import com.moscadanilo.libreria.model.Genre;
 import com.moscadanilo.libreria.repository.BookRepository;
 
 import jakarta.validation.Valid;
@@ -73,7 +74,10 @@ public class BookController {
 
     @GetMapping("/create")
     public String create(Model model){
+        // Passo un oggetto nuovo di tipo Book
         model.addAttribute("book", new Book());
+        // Passo l'enum dei generi
+        model.addAttribute("genres", Genre.values());
         return "/books/create";
     }
 

@@ -37,7 +37,7 @@ public class Book {
     @Column(nullable = false)
     private Integer pages;
 
-    @Enumerated(EnumType.STRING)    // salva il nome dell'enum come stringa ("INDOOR"/"OUTDOOR")
+    @Enumerated(EnumType.STRING)    // salva il nome dell'enum come stringa ("TECH"/"FICTION"/"HISTORY"/"ROMANCE"/"THRILLER"/"FANTASY"/"BIOGRAPHY")
     @Column(nullable = false)
     private Genre genre;
 

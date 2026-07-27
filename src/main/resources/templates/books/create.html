@@ -33,7 +33,7 @@
 
                                 <div class="mb-3">
                                     <label class="form-label" for="yearOfPublication">Inserisci la data di pubblicazione del libro</label>
-                                    <input type="number" class="form-control" name="yearOfPublication" id="yearOfPublication" min="1500"
+                                    <input type="number" class="form-control" name="yearOfPublication" id="yearOfPublication" min="1450"
                                         max="2026" step="1" value="2026" placeholder="AAAA" th:field="*{yearOfPublication}">
                                 </div>
 
@@ -45,6 +45,23 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="genre">Seleziona il genere del libro</label>
                                     <select class="form-select" name="genre" id="genre" th:field="*{genre}">
+                                        <option th:each="genre : ${genres}" th:value="${genre}"
+                                            th:text="${genre}"></option>
+                                    </select>
+                                </div>
+
+                                <!-- Soluzione senza passare la lista dei generi dal controller:
+                                <div class="mb-3">
+                                    <label class="form-label" for="genre">Seleziona il genere del libro</label>
+                                    <select class="form-select" name="genre" id="genre" th:field="*{genre}">
+                                        <option th:each="genre : ${T(com.moscadanilo.libreria.model.Genre).values()}" th:value="${genre}" th:text="${genre}"></option>
+                                    </select>
+                                </div> -->
+
+                                <!-- Soluzione iniziale (con lista statica e option scritte direttamente nel codice senza passaggio degli enum):
+                                <div class="mb-3">
+                                    <label class="form-label" for="genre">Seleziona il genere del libro</label>
+                                    <select class="form-select" name="genre" id="genre" th:field="*{genre}">
                                         <option value="TECH">TECH</option>
                                         <option value="FICTION">FICTION</option>
                                         <option value="HISTORY">HISTORY</option>
@@ -53,7 +70,7 @@
                                         <option value="FANTASY">FANTASY</option>
                                         <option value="BIOGRAPHY">BIOGRAPHY</option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <div class="mb-3">
                                     <label class="form-label" for="available">Disponibilità</label>
