@@ -85,6 +85,8 @@ public class BookController {
     public String store(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
         // Se ho degli errori ritorno la pagina create con gli errori
         if (bindingResult.hasErrors()) {
+            // Inoltre passo l'enum dei generi dei libri altrimenti questi non saranno più visibili nelle "option" della "select" al reindirizzamento nella pagina "create" con gli errori (la select del template fallisce perché ${genres} è null)
+            model.addAttribute("genres", Genre.values());
             return "/books/create";
         }
         // Altrimenti salvo il libro sul database e successivamente faccio un redirect alla pagina contenente tutti i libri

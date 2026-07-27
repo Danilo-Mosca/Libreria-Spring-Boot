@@ -10,6 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "books")
@@ -20,25 +26,39 @@ public class Book {
     private Integer id;
 
     @Column(nullable = false, length = 100)
+    @NotNull(message = "Ci dev'essere un titolo")
+    @NotBlank(message = "Il titolo non può essere vuoto")
+    @Size(min = 3, max = 100, message = "Il titolo deve avere tra i 3 e i 100 caratteri")
     private String title;
 
     @Column(nullable = false, length = 100)
+    @NotNull(message = "Ci dev'essere un autore")
+    @NotBlank(message = "L''autore non può essere vuoto")
+    @Size(min = 3, max = 100, message = "L''autore deve avere un nome compreso tra i 3 e i 100 caratteri")
     private String author;
 
     @Column(nullable = false)
+    @NotNull(message = "L''anno di pubblicazione è obbligatorio")
+    @Min(value = 1450, message = "L''anno di pubblicazione non può essere antecedente all'invenzione della stampa")
+    @Max(value = 2026, message = "L''anno di pubblicazione non può essere nel futuro")
     private Integer yearOfPublication;
 
     @Column(nullable = false)
+    @NotNull(message = "La disponibilità è obbligatoria")
     private boolean available = true;
 
     @Column( length = 255)
+    @Size(max = 255, message = "La descrizione non può avere più di 255 caratteri")
     private String description;
 
     @Column(nullable = false)
+    @NotNull(message = "Il numero delle pagine è obbligatorio")
+    @Positive(message = "Il numero delle pagine deve essere un valore maggiore di zero")
     private Integer pages;
 
     @Enumerated(EnumType.STRING)    // salva il nome dell'enum come stringa ("TECH"/"FICTION"/"HISTORY"/"ROMANCE"/"THRILLER"/"FANTASY"/"BIOGRAPHY")
     @Column(nullable = false)
+    @NotNull(message = "Ci dev''essere un genere")
     private Genre genre;
 
     // ── Relazione: molte Book → un User (relazione molti a uno) ──────────────────────────────────────

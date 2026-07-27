@@ -21,6 +21,12 @@
                         <div class="col-8">
                             <form id="book-form" th:action="@{/books/create}" method="post" th:object="${book}">
 
+                                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                                    <ul class="alert alert-danger ps-5">
+                                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label" for="title">Inserisci il titolo del libro</label>
                                     <input type="text" class="form-control" name="title" id="title" th:field="*{title}">
