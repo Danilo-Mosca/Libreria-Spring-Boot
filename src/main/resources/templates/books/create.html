@@ -21,51 +21,85 @@
                         <div class="col-8">
                             <form id="book-form" th:action="@{/books/create}" method="post" th:object="${book}">
 
-                                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                                <!-- Soluzione che mostra tutti gli errori in alto e insieme -->
+                                <!-- <div class="mb-3" th:if="${#fields.hasErrors()}">
                                     <ul class="alert alert-danger ps-5">
                                         <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
                                     </ul>
-                                </div>
+                                </div> -->
 
+                                <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
                                 <div class="mb-3">
                                     <label class="form-label" for="title">Inserisci il titolo del libro</label>
-                                    <input type="text" class="form-control" name="title" id="title" th:field="*{title}">
+                                    <input type="text" class="form-control" name="title" id="title" th:field="*{title}"
+                                        th:errorClass="is-invalid">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="author">Inserisci l'autore del libro</label>
-                                    <input type="text" class="form-control" name="author" id="author" th:field="*{author}">
+                                    <input type="text" class="form-control" name="author" id="author"
+                                        th:field="*{author}" th:errorClass="is-invalid">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('author')}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="yearOfPublication">Inserisci la data di pubblicazione del libro</label>
-                                    <input type="number" class="form-control" name="yearOfPublication" id="yearOfPublication" min="1450"
-                                        max="2026" step="1" value="2026" placeholder="AAAA" th:field="*{yearOfPublication}">
+                                    <label class="form-label" for="yearOfPublication">Inserisci la data di pubblicazione
+                                        del libro</label>
+                                    <input type="number" class="form-control" name="yearOfPublication"
+                                        id="yearOfPublication" min="1450" max="2026" step="1" value="2026"
+                                        placeholder="AAAA" th:field="*{yearOfPublication}" th:errorClass="is-invalid">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('yearOfPublication')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('yearOfPublication')}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="pages">Inserisci il numero di pagine</label>
-                                    <input type="number" class="form-control" min="3" step="1" name="pages" id="pages" th:field="*{pages}">
+                                    <input type="number" class="form-control" min="3" step="1" name="pages" id="pages"
+                                        th:field="*{pages}" th:errorClass="is-invalid">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('pages')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('pages')}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
+                                <!-- Passaggio della lista degli enum "Genre" direttamente dal metodo in BookController: -->
                                 <div class="mb-3">
                                     <label class="form-label" for="genre">Seleziona il genere del libro</label>
-                                    <select class="form-select" name="genre" id="genre" th:field="*{genre}">
-                                        <option th:each="genre : ${genres}" th:value="${genre}"
-                                            th:text="${genre}"></option>
+                                    <select class="form-select" name="genre" id="genre" th:field="*{genre}"
+                                        th:errorClass="is-invalid">
+                                        <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}">
+                                        </option>
                                     </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('genre')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('genre')}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
-                                <!-- Soluzione senza passare la lista dei generi dal controller:
-                                <div class="mb-3">
+                                <!-- Soluzione senza passare la lista dei generi dal controller, ma dinamicamente con la logica nella pagina create.html: -->
+                                <!-- <div class="mb-3">
                                     <label class="form-label" for="genre">Seleziona il genere del libro</label>
                                     <select class="form-select" name="genre" id="genre" th:field="*{genre}">
                                         <option th:each="genre : ${T(com.moscadanilo.libreria.model.Genre).values()}" th:value="${genre}" th:text="${genre}"></option>
                                     </select>
                                 </div> -->
 
-                                <!-- Soluzione iniziale (con lista statica e option scritte direttamente nel codice senza passaggio degli enum):
-                                <div class="mb-3">
+                                <!-- Soluzione iniziale (con lista statica e option scritte direttamente nel codice senza passaggio degli enum): -->
+                                <!-- <div class="mb-3">
                                     <label class="form-label" for="genre">Seleziona il genere del libro</label>
                                     <select class="form-select" name="genre" id="genre" th:field="*{genre}">
                                         <option value="TECH">TECH</option>
@@ -80,12 +114,24 @@
 
                                 <div class="mb-3">
                                     <label class="form-label" for="available">Disponibilità</label>
-                                    <input type="checkbox" class="form-check-input" name="available" id="available" th:field="*{available}">
+                                    <input type="checkbox" class="form-check-input" name="available" id="available"
+                                        th:field="*{available}" th:errorClass="is-invalid">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('available')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('available')}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="description">Descrizione del libro</label>
-                                    <textarea name="description" class="form-control" id="description" th:field="*{description}"></textarea>
+                                    <textarea name="description" class="form-control" id="description"
+                                        th:field="*{description}" th:errorClass="is-invalid"></textarea>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                                        <ul>
+                                            <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3 d-flex justify-content-between">
