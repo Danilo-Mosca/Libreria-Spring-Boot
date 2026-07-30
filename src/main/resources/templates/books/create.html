@@ -136,7 +136,9 @@
 
                                 <div class="mb-3 d-flex justify-content-between">
                                     <input type="submit" class="btn btn-primary" value="Inserisci nuovo libro">
-                                    <input type="reset" class="btn btn-warning" value="Azzera i campi">
+                                    <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo create() in modalità GET nel controller BookController.java: @GetMapping("/create") -->
+                                    <!-- <input type="reset" class="btn btn-warning" value="Azzera i campi"> -->
+                                    <a th:href="@{/books/create}" class="btn btn-warning">Azzera i campi</a>
                                 </div>
                             </form>
                         </div>
