@@ -95,7 +95,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    /* CREAZIONE DI LIBRI ESISTENTI */
+    /* MODIFICA (UPDATE) DI LIBRI ESISTENTI */
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         // Passo un oggetto che conterrà il libro da modificare
@@ -116,8 +116,7 @@ public class BookController {
             model.addAttribute("genres", Genre.values());
             return "/books/edit";
         }
-        // Altrimenti salvo il libro modificato sul database e successivamente faccio un redirect
-        // alla pagina contenente tutti i libri
+        // Altrimenti faccio l'aggiornamento dei dati salvo il libro modificato sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
         bookRepository.save(formBook);
         return "redirect:/books";
     }

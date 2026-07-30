@@ -19,7 +19,7 @@
                     </h1>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <form id="book-form" th:action="@{/books/edit}" method="post" th:object="${book}">
+                            <form id="book-form" th:action="@{/books/edit/{id}(id = ${book.id})}" method="post" th:object="${book}">
 
                                 <!-- Soluzione che mostra tutti gli errori in alto e insieme -->
                                 <!-- <div class="mb-3" th:if="${#fields.hasErrors()}">
@@ -29,6 +29,7 @@
                                 </div> -->
 
                                 <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
+                                <input type="hidden" name="id" th:field="*{id}" />
                                 <div class="mb-3">
                                     <label class="form-label" for="title">Inserisci il titolo del libro</label>
                                     <input type="text" class="form-control" name="title" id="title" th:field="*{title}"
@@ -138,10 +139,10 @@
                                 </div>
 
                                 <div class="mb-3 d-flex justify-content-between">
-                                    <input type="submit" class="btn btn-primary" value="Modifica il libro>
-                                    <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo edit() in modalità GET nel controller BookController.java: @GetMapping("/edit") -->
+                                    <input type="submit" class="btn btn-primary" value="Modifica il libro">
+                                    <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo edit() in modalità GET nel controller BookController.java: @GetMapping("/edit/{id}") -->
                                     <!-- <input type="reset" class="btn btn-warning" value="Azzera i campi"> -->
-                                    <a th:href="@{/books/edit}" class="btn btn-warning">Azzera i campi</a>
+                                    <a th:href="@{/books/edit/{id}(id = ${book.id})}" class="btn btn-warning">Azzera i campi</a>
                                 </div>
                             </form>
                         </div>

@@ -31,6 +31,7 @@
                             <th>Genere</th>
                             <th>Disponibilità</th>
                             <th>Descrizione</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,8 @@
                             <td th:text="*{genre}"></td>
                             <td th:text="*{available}"></td>
                             <td th:text="*{description}"></td>
+                            <td><a th:href="@{/books/{id}(id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
+                            <td><a th:href="@{/books/edit/{id}(id = *{id})}" class="btn btn-success btn-sm">Modifica</a></td>
                         </tr>
                     </tbody>
                 </table>
