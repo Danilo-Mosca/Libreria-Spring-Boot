@@ -72,6 +72,7 @@ public class BookController {
         return "/books/index";
     }
 
+    /* CREAZIONE DI NUOVI LIBRI */
     @GetMapping("/create")
     public String create(Model model){
         // Passo un oggetto nuovo di tipo Book
@@ -90,6 +91,33 @@ public class BookController {
             return "/books/create";
         }
         // Altrimenti salvo il libro sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
+        bookRepository.save(formBook);
+        return "redirect:/books";
+    }
+
+    /* CREAZIONE DI LIBRI ESISTENTI */
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        // Passo un oggetto che conterrà il libro da modificare
+        model.addAttribute("book", bookRepository.findById(id).get());
+        // Passo l'enum dei generi
+        model.addAttribute("genres", Genre.values());
+        return "/books/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
+        // Se ho degli errori ritorno la pagina edit in GET con gli errori
+        if (bindingResult.hasErrors()) {
+            // Inoltre passo l'enum dei generi dei libri altrimenti questi non saranno più
+            // visibili nelle "option" della "select" al reindirizzamento nella pagina
+            // "edit" con gli errori (la select del template fallisce perché ${genres} è
+            // null)
+            model.addAttribute("genres", Genre.values());
+            return "/books/edit";
+        }
+        // Altrimenti salvo il libro modificato sul database e successivamente faccio un redirect
+        // alla pagina contenente tutti i libri
         bookRepository.save(formBook);
         return "redirect:/books";
     }
