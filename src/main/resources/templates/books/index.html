@@ -48,17 +48,52 @@
                             <td th:text="*{description}"></td>
                             <td><a th:href="@{/books/{id} (id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
                             <td><a th:href="@{/books/edit/{id}(id = *{id})}" class="btn btn-success btn-sm">Modifica</a></td>
+                            <!-- Vecchia soluzione, form senza modale per la cancellazione, con semplice bottone
                             <td>
                                 <form th:action="@{/books/delete/{id} (id=${book.id})}" method="post">
-                                    <!-- Descrizione delle classi in CSS aggiunte:
+                                    Descrizione delle classi in CSS aggiunte:
                                     - d-inline-flex — il bottone resta inline-block ma diventa flex orizzontale
                                     - align-items-center — centra icona e testo verticalmente
-                                    - gap-1 — piccola spaziatura tra icona e testo (rimuove lo spazio da newline) -->
+                                    - gap-1 — piccola spaziatura tra icona e testo (rimuove lo spazio da newline)
                                     <button type="submit" class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1">
                                         <i class="far fa-trash-alt"></i><span>Elimina</span>
                                     </button>
                                 </form>
+                            </td> -->
+                            
+                            <!-- -------------------------------------------- MODALE -------------------------------------------- -->
+                            <td>
+                                <!-- Form con modale di bootstrap diviso in: -->
+                                 <!-- A: bottone che fa partire la modale -->
+                                <button type="button" class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1" data-bs-toggle="modal" th:data-bs-target="'#delete-modale-' + ${book.id}">
+                                    <i class="far fa-trash-alt"></i><span>Elimina</span>
+                                </button>
+
+                                <!-- B: modale che appare solo dopo il click sul relativo bottone -->
+                                <div class="modal fade" th:id="'delete-modale-' + ${book.id}" tabindex="-1" aria-labelledby="delete-modale" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina il libro "[[${book.title}]]</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sei sicuro di voler eliminare il libro con il titolo <strong>"[[${book.title}]]"</strong>?
+                                            </div>           
+                                            <div class="modal-footer">
+                                                <!-- Bottone da cliccare per chiudere la modale senza effetti -->
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                <!-- Vero bottone della modale che fa partire la nostra action di cancellazione chiamando il metodo delete -->
+                                                <form class="d-inline-block" th:action="@{/books/delete/{id} (id=${book.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><span>Elimina</span></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
+                            <!-- -------------------------------------------- MODALE -------------------------------------------- -->
+                        
                         </tr>
                     </tbody>
                 </table>
