@@ -134,4 +134,13 @@ public class BookController {
         bookRepository.save(book);
         return "redirect:/books";
     }
+
+    /* CANCELLAZIONE DI LIBRI ESISTENTI */
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        // Cancello il libro con quello specifico id presente nel database grazie al metodo fornito dall'ORM Spring Data JPA
+        bookRepository.deleteById(id);
+        // Faccio un redirect alla pagina contenente tutti i libri
+        return "redirect:/books";
+    }
 }

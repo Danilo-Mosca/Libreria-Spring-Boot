@@ -32,6 +32,8 @@
                             <th>Disponibilità</th>
                             <th>Descrizione</th>
                             <th>Azioni</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,8 +46,19 @@
                             <td th:text="*{genre}"></td>
                             <td th:text="*{available}"></td>
                             <td th:text="*{description}"></td>
-                            <td><a th:href="@{/books/{id}(id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
+                            <td><a th:href="@{/books/{id} (id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
                             <td><a th:href="@{/books/edit/{id}(id = *{id})}" class="btn btn-success btn-sm">Modifica</a></td>
+                            <td>
+                                <form th:action="@{/books/delete/{id} (id=${book.id})}" method="post">
+                                    <!-- Descrizione delle classi in CSS aggiunte:
+                                    - d-inline-flex — il bottone resta inline-block ma diventa flex orizzontale
+                                    - align-items-center — centra icona e testo verticalmente
+                                    - gap-1 — piccola spaziatura tra icona e testo (rimuove lo spazio da newline) -->
+                                    <button type="submit" class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1">
+                                        <i class="far fa-trash-alt"></i><span>Elimina</span>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
