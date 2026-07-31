@@ -106,7 +106,10 @@ public class BookController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
+    public String update(@PathVariable("id") Integer id,
+                         @Valid @ModelAttribute("book") Book formBook, 
+                         BindingResult bindingResult, 
+                         Model model) {
         // Se ho degli errori ritorno la pagina edit in GET con gli errori
         if (bindingResult.hasErrors()) {
             // Inoltre passo l'enum dei generi dei libri altrimenti questi non saranno più
@@ -116,8 +119,19 @@ public class BookController {
             model.addAttribute("genres", Genre.values());
             return "/books/edit";
         }
-        // Altrimenti faccio l'aggiornamento dei dati salvo il libro modificato sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
-        bookRepository.save(formBook);
+        // Altrimenti faccio l'aggiornamento dei dati creando un oggetto di tipo Book
+        Book book = bookRepository.findById(id).get();
+
+        // Inserisco i valori ricevuti dal form nell'oggetto di tipo Book
+        book.setTitle(formBook.getTitle());
+        book.setAuthor(formBook.getAuthor());
+        book.setYearOfPublication(formBook.getYearOfPublication());
+        book.setPages(formBook.getPages());
+        book.setGenre(formBook.getGenre());
+        book.setAvailable(formBook.isAvailable());
+        book.setDescription(formBook.getDescription());
+        // Infine salvo il libro modificato sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
+        bookRepository.save(book);
         return "redirect:/books";
     }
 }
