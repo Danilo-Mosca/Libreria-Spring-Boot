@@ -1,5 +1,7 @@
 package com.moscadanilo.libreria.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -66,6 +69,10 @@ public class Book {
     @JoinColumn(name = "user_id")  // nome della FK nella tabella Books
     //Oppure anche  @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    /* AGGIUNTA DI UNA RELAZIONE TRA UN LIBRO E 0,1,2,3,4,5 O PIU' PRESTITI */
+    @OneToMany( mappedBy = "book")  // Specifico che si tratta di una relazione One to Many che si basa sull'entità book (no books, perchè si tratta del singolo libro non dell'insieme di libri)
+    private List<Borrowing> borrowings; //Lista dei prestiti
 
     // Costruttore no-arg
     /* LO COMMENTO PROVVISORIAMENTE USANDO UN COSTRUTTORE SENZA ARGOMENTI PUBBLICO
