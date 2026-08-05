@@ -30,7 +30,7 @@ public class Borrowing {
     // Data di inizio prestito
     @NotNull(message = "La data di inizio prestito non può essere nulla")
     @PastOrPresent(message = "La data inserita per l'inizio del prestito non può essere una data futura")   // Regola che dice che la data in cui io vado a prendere in prestito il libro non può essere una data diversa da oggi o una data precedente a quella di oggi. Non permette che l'utente inserisca una data successiva a quella di oggi
-    private LocalDate borrowinDate;
+    private LocalDate borrowingDate;
 
     // Data di ritorno del libro dato in prestito
     @PastOrPresent(message = "La data inserita per il ritorno del libro preso in prestito non può essere una data futura")  // Come per borrowingDate
@@ -39,4 +39,45 @@ public class Borrowing {
     // Stringa di tipo Lob ovvero long object (oggetto di grandi dimensioni)
     @Lob
     private String notes;
+
+    // Getter e setter
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Book getBook() {
+        return this.book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public LocalDate getBorrowingDate() {
+        return this.borrowingDate;
+    }
+
+    public void setBorrowingDate(LocalDate borrowingDate) {
+        this.borrowingDate = borrowingDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return this.returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

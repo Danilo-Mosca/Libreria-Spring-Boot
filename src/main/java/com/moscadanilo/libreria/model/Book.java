@@ -74,6 +74,15 @@ public class Book {
     @OneToMany( mappedBy = "book")  // Specifico che si tratta di una relazione One to Many che si basa sull'entità book (no books, perchè si tratta del singolo libro non dell'insieme di libri)
     private List<Borrowing> borrowings; //Lista dei prestiti
 
+    // Getter e setter della variabile d'istanza borrowings della tabella dipendende "borrowings"
+    public List<Borrowing> getBorrowings() {
+        return this.borrowings;
+    }
+
+    public void setBorrowings(List<Borrowing> borrowings) {
+        this.borrowings = borrowings;
+    }
+    
     // Costruttore no-arg
     /* LO COMMENTO PROVVISORIAMENTE USANDO UN COSTRUTTORE SENZA ARGOMENTI PUBBLICO
     protected Book() {
