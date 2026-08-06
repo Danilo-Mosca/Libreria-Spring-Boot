@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moscadanilo.libreria.model.Book;
+import com.moscadanilo.libreria.model.Borrowing;
 import com.moscadanilo.libreria.model.Genre;
 import com.moscadanilo.libreria.repository.BookRepository;
 
@@ -143,4 +144,14 @@ public class BookController {
         // Faccio un redirect alla pagina contenente tutti i libri
         return "redirect:/books";
     }
+
+    /* METODO PRENDI IN PRESTITO UN LIBRO */
+    @GetMapping("/{id}/borrow")         // localhost:8080/books/id/borrow
+    public String borrow(@PathVariable("id") Integer id, Model model) {
+        Borrowing borrowing = new Borrowing();
+        borrowing.setBook(bookRepository.findById(id).get());
+        model.addAttribute("borrowing", borrowing);        
+        return "borrowings/create";
+    }
+    
 }
