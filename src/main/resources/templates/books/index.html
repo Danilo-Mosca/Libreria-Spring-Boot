@@ -34,6 +34,7 @@
                             <th>Azioni</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,8 +47,9 @@
                             <td th:text="*{genre}"></td>
                             <td th:text="*{available}"></td>
                             <td th:text="*{description}"></td>
-                            <td><a th:href="@{/books/{id} (id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
-                            <td><a th:href="@{/books/edit/{id}(id = *{id})}" class="btn btn-success btn-sm">Modifica</a></td>
+                            <td class="align-middle"><a th:href="@{/books/{id}/borrow (id = *{id})}" class="btn btn-outline-primary btn-sm">Chiedi in prestito</a></td>
+                            <td class="align-middle"><a th:href="@{/books/{id} (id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
+                            <td class="align-middle"><a th:href="@{/books/edit/{id}(id = *{id})}" class="btn btn-success btn-sm">Modifica</a></td>
                             <!-- Vecchia soluzione, form senza modale per la cancellazione, con semplice bottone
                             <td>
                                 <form th:action="@{/books/delete/{id} (id=${book.id})}" method="post">
@@ -62,7 +64,7 @@
                             </td> -->
                             
                             <!-- -------------------------------------------- MODALE -------------------------------------------- -->
-                            <td>
+                            <td class="align-middle">
                                 <!-- Form con modale di bootstrap diviso in: -->
                                  <!-- A: bottone che fa partire la modale -->
                                 <button type="button" class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1" data-bs-toggle="modal" th:data-bs-target="'#delete-modale-' + ${book.id}">
@@ -74,7 +76,7 @@
                                     <div class="modal-dialog modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina il libro "[[${book.title}]]</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina il libro "[[${book.title}]]"</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">

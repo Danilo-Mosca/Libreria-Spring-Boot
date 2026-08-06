@@ -21,7 +21,7 @@
                     </h1>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <form id="book-form" th:action="..." method="post" th:object="...">
+                            <form id="book-form" th:action="@{/borrowings/create}" method="post" th:object="${borrowing}">
 
                                 <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
                                 <div class="mb-3">
