@@ -130,6 +130,7 @@ public class BookController {
         book.setPages(formBook.getPages());
         book.setGenre(formBook.getGenre());
         book.setAvailable(formBook.isAvailable());
+        book.setNumberOfCopies(formBook.getNumberOfCopies());
         book.setDescription(formBook.getDescription());
         // Infine salvo il libro modificato sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
         bookRepository.save(book);

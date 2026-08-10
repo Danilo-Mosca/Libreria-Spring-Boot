@@ -3,7 +3,7 @@
 
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
-    <title>Pagina inserimento libro</title>
+    <title>Pagina inserimento prenotazione libro</title>
 </head>
 
 <body>
@@ -24,11 +24,14 @@
                             <form id="book-form" th:action="@{/borrowings/create}" method="post"
                                 th:object="${borrowing}">
 
+                                <!-- Le informazioni sul libro che abbiamo selezionato saranno presenti qui su un input di tipo hidden (nascosto) -->
+                                <input type="hidden" name="book.id" th:value="${borrowing.book.id}">
+
                                 <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="borrowing-date">Inserisci la data del
+                                    <label class="form-label" for="borrowingDate">Inserisci la data del
                                         prestito</label>
-                                    <input type="date" class="form-control" name="borrowing-date" id="borrowing-date"
+                                    <input type="date" class="form-control" name="borrowingDate" id="borrowingDate"
                                         th:field="*{borrowingDate}" th:errorClass="is-invalid">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('borrowingDate')}">
                                         <ul>
@@ -39,9 +42,9 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="return-date">Inserisci la data di restituzione del
+                                    <label class="form-label" for="returnDate">Inserisci la data di restituzione del
                                     libro</label>
-                                    <input type="date" class="form-control" name="return-date" id="return-date"
+                                    <input type="date" class="form-control" name="returnDate" id="returnDate"
                                         th:field="*{returnDate}" th:errorClass="is-invalid">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('returnDate')}">
                                         <ul>
@@ -67,7 +70,7 @@
                                     <input type="submit" class="btn btn-primary" value="Crea un nuovo prestito libro">
                                     <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo create() in modalità GET nel controller BookController.java: @GetMapping("/create") -->
                                     <!-- <input type="reset" class="btn btn-warning" value="Azzera i campi"> -->
-                                    <a th:href="@{/borrowings/create}" class="btn btn-warning">Azzera i campi</a>
+                                    <a th:href="@{/books/{id}(id=${borrowing.book.id})/borrow}" class="btn btn-warning">Azzera i campi</a>
                                 </div>
                             </form>
                         </div>

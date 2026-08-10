@@ -8,6 +8,7 @@ public record BookResponse(
     Integer pages,
     String genre,
     boolean available,
+    Integer numberOfCopies,
     String description      
 ) {
 }

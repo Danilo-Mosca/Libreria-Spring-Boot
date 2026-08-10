@@ -10,6 +10,7 @@ public record UserBookResponse(
         Integer pages,
         String genre,
         boolean available,
+        Integer numberOfCopies,
         String description
 ) {
 }

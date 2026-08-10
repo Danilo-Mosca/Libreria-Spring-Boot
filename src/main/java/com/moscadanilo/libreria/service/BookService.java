@@ -105,6 +105,7 @@ public class BookService {
         book.setGenre(bookDetails.genre());
         book.setYearOfPublication(bookDetails.yearOfPublication());
         book.setAvailable(bookDetails.available());
+        book.setNumberOfCopies(bookDetails.numberOfCopies());
         book.setDescription(bookDetails.description());
         // Salvo nel database e nella variabile updated di tipo Book
         Book updated = bookRepository.save(book);
@@ -138,6 +139,7 @@ public class BookService {
             request.pages(),
             request.genre(),
             request.available(),
+            request.numberOfCopies(),
             request.description()
         );
         return book;
@@ -153,6 +155,7 @@ public class BookService {
                 book.getPages(),
                 book.getGenre().name(),  // converte enum in stringa
                 book.isAvailable(),
+                book.getNumberOfCopies(),
                 book.getDescription()
         );
     }

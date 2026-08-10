@@ -30,6 +30,7 @@
                             <th>Numero di pagine</th>
                             <th>Genere</th>
                             <th>Disponibilità</th>
+                            <th>Numero di copie</th>
                             <th>Descrizione</th>
                             <th>Azioni</th>
                             <th></th>
@@ -46,6 +47,7 @@
                             <td th:text="*{pages}"></td>
                             <td th:text="*{genre}"></td>
                             <td th:text="*{available}"></td>
+                            <td th:text="*{numberOfCopies}"></td>
                             <td th:text="*{description}"></td>
                             <td class="align-middle"><a th:href="@{/books/{id}/borrow (id = *{id})}" class="btn btn-outline-primary btn-sm">Chiedi in prestito</a></td>
                             <td class="align-middle"><a th:href="@{/books/{id} (id = *{id})}" class="btn btn-primary btn-sm">Mostra</a></td>
@@ -99,7 +101,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p th:text="Non ci sono libri in biblioteca in questo momento..." th:unless="${books.size() > 0}"></p>
+                <p th:text="'Non ci sono libri in biblioteca in questo momento...'" th:unless="${books.size() > 0}"></p>
             </div>
 
         </section>

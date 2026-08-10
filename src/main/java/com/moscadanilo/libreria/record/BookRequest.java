@@ -36,6 +36,10 @@ public record BookRequest(
     @NotNull(message = "La disponibilità è obbligatoria")
     Boolean available,
 
+    @NotNull(message = "Devi inserire obbligatoriamente un numero di copie")
+    @Min(value = 0, message = "Il numero di copie non può essere negativo")
+    Integer numberOfCopies,
+
     @Size(max = 255, message = "La descrizione non può avere più di 255 caratteri")
     String description
 ) {}

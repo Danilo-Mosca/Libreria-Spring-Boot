@@ -223,6 +223,7 @@ public class UserService {
                                 book.getPages(),
                                 book.getGenre().name(),
                                 book.isAvailable(),
+                                book.getNumberOfCopies(),
                                 book.getDescription()
                         ))
                         .toList()

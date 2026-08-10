@@ -176,6 +176,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
+    // Eccezione che si verifica se non inserisco un numberOfCopies al libro che sto creando o modificando
+    @ExceptionHandler(BookNumberOfCopiesNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleBookNumberOfCopiesNotFound(BookNumberOfCopiesNotFoundException exception){
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
     // Server Error (errore generico non gestito)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception exception) {
