@@ -1,5 +1,6 @@
 package com.moscadanilo.libreria.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,12 +9,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.moscadanilo.libreria.model.Borrowing;
+import com.moscadanilo.libreria.repository.BorrowingRepository;
 
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/borrowings")
 public class BorrowingController {
+
+    private final BorrowingRepository borrowingRepository;  // dichiaro una variabile di tipo private final di BookRepositor
+
+    // Iniezione via costruttore (raccomandata)
+    // Iniezione dipendenze tramite costruttore ed essendo un solo costruttore si può omettere @Autowired in quanto lo farà automaticamente
+    @Autowired
+    public BorrowingController(BorrowingRepository borrowingRepository){
+        this.borrowingRepository = borrowingRepository;
+    }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("borrowing") Borrowing formBorrowing, BindingResult bindingResult,
