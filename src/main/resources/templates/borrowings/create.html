@@ -24,7 +24,7 @@
                             <form id="book-form" th:action="@{/borrowings/create}" method="post"
                                 th:object="${borrowing}">
 
-                                <!-- Le informazioni sul libro che abbiamo selezionato saranno presenti qui su un input di tipo hidden (nascosto) -->
+                                <!-- Le informazioni sul libro che abbiamo selezionato, e quindi il suo id, saranno presenti qui su un input di tipo hidden (nascosto) -->
                                 <input type="hidden" name="book.id" th:value="${borrowing.book.id}">
 
                                 <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
@@ -70,7 +70,7 @@
                                     <input type="submit" class="btn btn-primary" value="Crea un nuovo prestito libro">
                                     <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo create() in modalità GET nel controller BookController.java: @GetMapping("/create") -->
                                     <!-- <input type="reset" class="btn btn-warning" value="Azzera i campi"> -->
-                                    <a th:href="@{/books/{id}(id=${borrowing.book.id})/borrow}" class="btn btn-warning">Azzera i campi</a>
+                                    <a th:href="@{/books/{id}/borrow(id=${borrowing.book.id})}" class="btn btn-warning">Azzera i campi</a>
                                 </div>
                             </form>
                         </div>
