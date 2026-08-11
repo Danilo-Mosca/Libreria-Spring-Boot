@@ -119,6 +119,10 @@ public class Book {
     public Integer getId() {
         return id;
     }
+    // Setter di id per permettere il salvataggio dei borrowing (prenotazioni) associate all'id di quel libro selezionato
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
