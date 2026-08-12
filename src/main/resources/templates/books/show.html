@@ -30,6 +30,37 @@
             </div>
         </section>
 
+        <section class="row mb-3 borrowings">
+            <div class="col-12" th:unless="${book.getBorrowings().size() > 0}">
+                <div class="alert alert-warning">
+                    <h4>Non ci sono prestiti per questo libro</h4>
+                </div>
+            </div>
+            <div class="col-12" th:if="${book.getBorrowings().size() > 0}">
+                <h2 class="fw-bold">
+                    Prestiti
+                </h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Data del prestito</th>
+                            <th>Data di ritorno dal prestito</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="borrowing : ${book.getBorrowings()}" th:object="${borrowing}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{borrowingDate}]]</td>
+                            <td>[[${borrowing.returnDate}]]</td>
+                            <td>[[${borrowing.notes}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </div>
 
     <div th:replace="~{fragments/resources :: scripts}"></div>
