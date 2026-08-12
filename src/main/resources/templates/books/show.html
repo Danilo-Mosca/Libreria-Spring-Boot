@@ -53,7 +53,9 @@
                         <tr th:each="borrowing : ${book.getBorrowings()}" th:object="${borrowing}">
                             <td>[[*{id}]]</td>
                             <td>[[*{borrowingDate}]]</td>
-                            <td>[[${borrowing.returnDate}]]</td>
+                            <td th:if="${borrowing.returnDate} != null">[[${borrowing.returnDate}]]</td>
+                            <td th:unless="${borrowing.returnDate} != null">Libro <strong>[[${borrowing.book.title}]]</strong> non ancora restituito</td>
+                            <!-- Oppure anche [[${borrowing.getBook().getTitle()}]] o ancora: [[${borrowing.getBook.getTitle}]]-->
                             <td>[[${borrowing.notes}]]</td>
                         </tr>
                     </tbody>
