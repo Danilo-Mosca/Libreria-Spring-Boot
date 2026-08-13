@@ -36,6 +36,6 @@ public class BorrowingController {
         }
         // Altrimenti salvo il libro sul database e successivamente faccio un redirect alla show del libro che ho appena preso in prestito
         borrowingRepository.save(formBorrowing);
-        return "redirect:/books";
+        return "redirect:/books/" + formBorrowing.getBook().getId();    //Una volta aggiunto il prestito reindirizzo alla show del libro che ho appena preso in prestito
     }
 }
