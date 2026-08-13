@@ -62,6 +62,7 @@
                             <!-- Edit del prestito: -->
                              <td>
                                 <!-- Oppure anche th:href="@{/borrowings/edit/{id}(id=${borrowing.id})} o anche "@{/borrowings/edit/{id}(id=${borrowing.getId})}" -->
+                                 <!-- Oppure posso usare le pipe "|" in questo modo: th:href="@{|/borrowings/edit/${borrowing.id}|}" -->
                                 <a th:href="@{/borrowings/edit/{id}(id=${borrowing.getId()})}" class="btn btn-success btn-sm">Modifica</a>
                              </td>
                         </tr>

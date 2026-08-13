@@ -38,4 +38,8 @@ public class BorrowingController {
         borrowingRepository.save(formBorrowing);
         return "redirect:/books/" + formBorrowing.getBook().getId();    //Una volta aggiunto il prestito reindirizzo alla show del libro che ho appena preso in prestito
     }
+
+    /* METODO CHE RESTITUISCA UNA EDIT DA COMPILARE (CON DATI GIA' INSERITI) */
+
+    /* METODO CHE EFFETTUI UNA UPDATE VERA E PROPRIA */
 }
