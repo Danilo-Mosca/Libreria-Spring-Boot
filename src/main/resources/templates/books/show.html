@@ -61,8 +61,8 @@
 
                             <!-- Edit del prestito: -->
                              <td>
-                                <!-- Oppure anche th:href="@{/borrowings/edit/{id}(id=${borrowing.book.id})} o anche "@{/borrowings/edit/{id}(id=${borrowing.getBook.getId})}" -->
-                                <a th:href="@{/borrowings/edit/{id}(id=${borrowing.getBook().getId()})}" class="btn btn-success btn-sm">Modifica</a>
+                                <!-- Oppure anche th:href="@{/borrowings/edit/{id}(id=${borrowing.id})} o anche "@{/borrowings/edit/{id}(id=${borrowing.getId})}" -->
+                                <a th:href="@{/borrowings/edit/{id}(id=${borrowing.getId()})}" class="btn btn-success btn-sm">Modifica</a>
                              </td>
                         </tr>
                     </tbody>
