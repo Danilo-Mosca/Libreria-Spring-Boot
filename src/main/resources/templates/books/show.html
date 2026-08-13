@@ -47,6 +47,7 @@
                             <th>Data del prestito</th>
                             <th>Data di ritorno dal prestito</th>
                             <th>Note</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,12 @@
                             <td th:unless="${borrowing.returnDate} != null">Libro <strong>[[${borrowing.book.title}]]</strong> non ancora restituito</td>
                             <!-- Oppure anche [[${borrowing.getBook().getTitle()}]] o ancora: [[${borrowing.getBook.getTitle}]]-->
                             <td>[[${borrowing.notes}]]</td>
+
+                            <!-- Edit del prestito: -->
+                             <td>
+                                <!-- Oppure anche th:href="@{/borrowings/edit/{id}(id=${borrowing.book.id})} o anche "@{/borrowings/edit/{id}(id=${borrowing.getBook.getId})}" -->
+                                <a th:href="@{/borrowings/edit/{id}(id=${borrowing.getBook().getId()})}" class="btn btn-success btn-sm">Modifica</a>
+                             </td>
                         </tr>
                     </tbody>
                 </table>
