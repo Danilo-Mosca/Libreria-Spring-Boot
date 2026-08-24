@@ -152,7 +152,7 @@ public class BookController {
         Borrowing borrowing = new Borrowing();
         borrowing.setBook(bookRepository.findById(id).get());
         model.addAttribute("borrowing", borrowing);        
-        return "borrowings/create";
+        return "borrowings/create-or-edit";
     }
     
 }

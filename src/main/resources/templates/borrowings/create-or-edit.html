@@ -21,7 +21,7 @@
                     </h1>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <form id="book-form" th:action="@{/borrowings/create}" method="post"
+                            <form id="book-form" th:action="${edit} ? @{|/borrowings/edit/${borrowing.id}|} : @{/borrowings/create}" method="post"
                                 th:object="${borrowing}">
 
                                 <!-- Le informazioni sul libro che abbiamo selezionato, e quindi il suo id, saranno presenti qui su un input di tipo hidden (nascosto) -->
