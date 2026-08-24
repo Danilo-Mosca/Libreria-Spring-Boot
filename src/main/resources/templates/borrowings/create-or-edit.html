@@ -67,7 +67,7 @@
                                 </div>
 
                                 <div class="mb-3 d-flex justify-content-between">
-                                    <input type="submit" class="btn btn-primary" value="Crea un nuovo prestito libro">
+                                    <input type="submit" class="btn btn-primary" value="Salva">
                                     <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo create() in modalità GET nel controller BookController.java: @GetMapping("/create") -->
                                     <!-- <input type="reset" class="btn btn-warning" value="Azzera i campi"> -->
                                     <a th:href="@{/books/{id}/borrow(id=${borrowing.book.id})}" class="btn btn-warning">Azzera i campi</a>

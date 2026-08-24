@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,6 +42,18 @@ public class BorrowingController {
     }
 
     /* METODO CHE RESTITUISCA UNA EDIT DA COMPILARE (CON DATI GIA' INSERITI) */
-
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+        // Passo un oggetto che conterrà il prestito da modificare
+        model.addAttribute("borrowing", borrowingRepository.findById(id).get());
+        // Restituisco un valore che verrà controllato dal form per capire se sto eseguendo una "create" o una "edit", e in tal caso il form verrà reindirizzato nella giusta pagina
+        model.addAttribute("edit", true);
+        return "borrowings/create-or-edit";
+    }
+    
     /* METODO CHE EFFETTUI UNA UPDATE VERA E PROPRIA */
+    @PostMapping("/edit/{id}")
+    public String update(){
+
+    }
 }
