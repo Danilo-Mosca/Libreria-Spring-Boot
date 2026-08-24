@@ -36,7 +36,7 @@ public class BorrowingController {
             // Inoltre passo l'enum dei generi dei libri altrimenti questi non saranno più visibili nelle "option" della "select" al reindirizzamento nella pagina "create" con gli errori (la select del template fallisce perché ${genres} è null)
             return "/borrowings/create-or-edit";
         }
-        // Altrimenti salvo il libro sul database e successivamente faccio un redirect alla show del libro che ho appena preso in prestito
+        // Altrimenti salvo il prestito sul database e successivamente faccio un redirect alla show del libro che ho appena preso in prestito e che conterrà nella lista dei prestiti anche l'ultimo prestito da me creato
         borrowingRepository.save(formBorrowing);
         return "redirect:/books/" + formBorrowing.getBook().getId();    //Una volta aggiunto il prestito reindirizzo alla show del libro che ho appena preso in prestito
     }
@@ -51,9 +51,15 @@ public class BorrowingController {
         return "borrowings/create-or-edit";
     }
     
-    /* METODO CHE EFFETTUI UNA UPDATE VERA E PROPRIA */
+    /* METODO CHE EFFETTUI UNA UPDATE VERA E PROPRIA (CON VALIDAZIONE) */
     @PostMapping("/edit/{id}")
-    public String update(){
-
+    public String update(@Valid @ModelAttribute("borrowing") Borrowing formBorrowing, BindingResult bindingResult, Model model){
+        // Se ho degli errori ritorno la pagina edit in GET con gli errori
+        if (bindingResult.hasErrors()) {
+            return "/borrowings/create-or-edit";
+        }
+        // Altrimenti salvo il prestito sul database e successivamente faccio un redirect alla show del libro che ho appena preso in prestito e che conterrà nella lista dei prestiti anche il prestito da me modificato
+        borrowingRepository.save(formBorrowing);
+        return "redirect:/books/" + formBorrowing.getBook().getId();    //Una volta modificato il prestito reindirizzo alla show del libro che ho appena preso in prestito
     }
 }
