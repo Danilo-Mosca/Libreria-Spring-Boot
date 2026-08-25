@@ -16,6 +16,7 @@ import com.moscadanilo.libreria.model.Book;
 import com.moscadanilo.libreria.model.Borrowing;
 import com.moscadanilo.libreria.model.Genre;
 import com.moscadanilo.libreria.repository.BookRepository;
+import com.moscadanilo.libreria.repository.BorrowingRepository;
 
 import jakarta.validation.Valid;
 
@@ -28,12 +29,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class BookController {
 
     private final BookRepository bookRepository; // dichiaro una variabile di tipo private final di BookRepository
+    private final BorrowingRepository borrowingRepository;  // dichiaro una variabile di tipo private final di BookRepositor
 
     // Iniezione via costruttore (raccomandata)
     //Iniezione dipendenze tramite costruttore ed essendo un solo costruttore si può omettere @Autowired in quanto lo farà automaticamente
     @Autowired
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, BorrowingRepository borrowingRepository) {
         this.bookRepository = bookRepository;
+        this.borrowingRepository = borrowingRepository;
     }
 
     // Ritorna tutta la lista dei libri
@@ -140,8 +143,23 @@ public class BookController {
     /* CANCELLAZIONE DI LIBRI ESISTENTI */
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        // Cancello il libro con quello specifico id presente nel database grazie al metodo fornito dall'ORM Spring Data JPA
-        bookRepository.deleteById(id);
+        Book book = bookRepository.findById(id).get();  // prima cerco il libro corrispondente a quell'id che voglio cancellare
+        
+        // Poi prendo per ogni libro i prestiti (borrowings) che sono ad esso connessi -> grazie al metodo getBorrowings() presente in Book model
+        // Poi controllo con un ciclo for quante prenotazioni ci sono per quel libro
+        // Ed elimino i prestiti corrispondenti dalla tabella borrowings
+        for (Borrowing borrowingToDelete : book.getBorrowings()) {
+            // Cancello ogni prenotazione (borrowing) presente il quel libro
+            borrowingRepository.delete(borrowingToDelete);  // elimino ogni riga di borrowing corrispondente a quel libro
+        }
+        
+        /* ORA CHE NON HO PIU' LEGAMI CON BORROWINGS (VINCOLI DI CHIAVE ESTERNA SU book_id), CIOE' NELLA COLLONNA "book_id" DELLA TABELLA "borrowings" POSSO CANCELLARE LA RIGA CORRISPONDENTE A QUEL LIBRO */
+        
+        // Cancello quella entità "book" dalla tabella "books"
+        bookRepository.delete(book);    // Oppure va bene anche: bookRepository.deleteById(id);
+        // Oppure potrei cancellare il libro con quello specifico id presente nel database grazie al metodo fornito dall'ORM Spring Data JPA
+        // bookRepository.deleteById(id);
+        
         // Faccio un redirect alla pagina contenente tutti i libri
         return "redirect:/books";
     }
