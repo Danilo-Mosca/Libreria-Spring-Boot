@@ -82,6 +82,11 @@ public class Book {
                                   // book (no books, perchè si tratta del singolo libro non dell'insieme di libri)
     private List<Borrowing> borrowings; // Lista dei prestiti
 
+    /* Se avessi aggiunto i seguenti parametri:
+    @OneToMany(mappedBy = "book", cascade = { CascadeType.REMOVE })
+    avrei cancellato qualsiasi libro con i relativi prestiti ad esso associati senza modificare il metodo "delete" iniziale presente in BookController
+    */
+   
     // Getter e setter della variabile d'istanza borrowings della tabella dipendende
     // "borrowings"
     public List<Borrowing> getBorrowings() {
