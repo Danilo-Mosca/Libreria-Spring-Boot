@@ -61,4 +61,14 @@ public class Category {
     /* Aggiungo una relazione "many to many" tra il Book e la Category */
     private List<Book> books;   // Lista dei libri
 
+    /* Getter e setter della Many to many tra "Book" e "Category" */
+
+    public List<Book> getBooks() {
+        return this.books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
 }

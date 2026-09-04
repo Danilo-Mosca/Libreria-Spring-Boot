@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -91,6 +92,12 @@ public class Book {
     /* Aggiunta relazione "many to many" tra il Book e la Category */
     // Procedo con l'associazione tra le due tabelle: books e categories
     @ManyToMany
+    // @JoinTable specifica la mappatura di associazione delle due tabelle (Book e Category) dal lato della tabella pivot tra una many to many: specifico le variabili d'istanza a cui dovrà fare riferimento la tabella pivot "book_category" (ricordiamoci che va messo il nome delle tabelle al singolare e in ordine alfabetico):
+    @JoinTable(
+        name = "book_category",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private List<Category> categories;  // Lista delle categorie dei libri
    
     // Getter e setter della variabile d'istanza borrowings della tabella dipendende
@@ -210,6 +217,22 @@ public class Book {
     public void setUser(User user) {
         this.user = user;
     }
+
+
+    public boolean getAvailable() {
+        return this.available;
+    }
+
+    /* Getter e setter della Many to many tra "Book" e "Category" */
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+
     // ----------------------
 
     // Override del metodo toString() aggiornato
