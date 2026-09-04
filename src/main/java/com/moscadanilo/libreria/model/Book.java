@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -86,6 +87,11 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = { CascadeType.REMOVE })
     avrei cancellato qualsiasi libro con i relativi prestiti ad esso associati senza modificare il metodo "delete" iniziale presente in BookController
     */
+
+    /* Aggiunta relazione "many to many" tra il Book e la Category */
+    // Procedo con l'associazione tra le due tabelle: books e categories
+    @ManyToMany
+    private List<Category> categories;  // Lista delle categorie dei libri
    
     // Getter e setter della variabile d'istanza borrowings della tabella dipendende
     // "borrowings"
