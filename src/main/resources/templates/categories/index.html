@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Categories</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('categories')}"></nav>
+
+    <main class="container">
+        <h1>Categories</h1>
+        <hr />
+        
+        <div class="mb-3 d-flex">
+            <a th:href="@{/categories/create}" class="me-auto btn btn-primary btm-sm">
+                Crea una nuova categoria
+            </a>
+        </div>
+
+        <section class="row">
+            <div class="col-12">
+                <table class="table" th:if="${categories.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Titolo</th>
+                            <th>Autore</th>
+                            <th>Anno di pubblicazione</th>
+                            <th>Numero di pagine</th>
+                            <th>Genere</th>
+                            <th>Disponibilità</th>
+                            <th>Numero di copie</th>
+                            <th>Descrizione</th>
+                            <th>Azioni</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="book : ${categories}" th:object="${book}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{title}]]</td>
+                            <td>[[*{author}]]</td>
+                            <td>[[*{yearOfPublication}]]</td>
+                            <td th:text="*{pages}"></td>
+                            <td th:text="*{genre}"></td>
+                            <td th:text="*{available}"></td>
+                            <td th:text="*{numberOfCopies}"></td>
+                            <td th:text="*{description}"></td>
+                            <td class="align-middle"><a th:href="@{/categories/{id}/borrow (id = *{id})}"
+                                    class="btn btn-outline-primary btn-sm">Chiedi in prestito</a></td>
+                            <td class="align-middle"><a th:href="@{/categories/{id} (id = *{id})}"
+                                    class="btn btn-primary btn-sm">Mostra</a></td>
+                            <td class="align-middle"><a th:href="@{/categories/edit/{id}(id = *{id})}"
+                                    class="btn btn-success btn-sm">Modifica</a></td>
+                            <!-- Vecchia soluzione, form senza modale per la cancellazione, con semplice bottone
+                            <td>
+                                <form th:action="@{/categories/delete/{id} (id=${book.id})}" method="post">
+                                    Descrizione delle classi in CSS aggiunte:
+                                    - d-inline-flex — il bottone resta inline-block ma diventa flex orizzontale
+                                    - align-items-center — centra icona e testo verticalmente
+                                    - gap-1 — piccola spaziatura tra icona e testo (rimuove lo spazio da newline)
+                                    <button type="submit" class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1">
+                                        <i class="far fa-trash-alt"></i><span>Elimina</span>
+                                    </button>
+                                </form>
+                            </td> -->
+
+                            <!-- -------------------------------------------- MODALE -------------------------------------------- -->
+                            <td class="align-middle">
+                                <!-- Form con modale di bootstrap diviso in: -->
+                                <!-- A: bottone che fa partire la modale -->
+                                <button type="button"
+                                    class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1"
+                                    data-bs-toggle="modal" th:data-bs-target="'#delete-modale-' + ${book.id}">
+                                    <i class="far fa-trash-alt"></i><span>Elimina</span>
+                                </button>
+
+                                <!-- B: modale che appare solo dopo il click sul relativo bottone -->
+                                <div class="modal fade" th:id="'delete-modale-' + ${book.id}" tabindex="-1"
+                                    aria-labelledby="delete-modale" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina il libro
+                                                    "[[${book.title}]]"</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sei sicuro di voler eliminare il libro con il titolo
+                                                <strong>"[[${book.title}]]"</strong>?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- Bottone da cliccare per chiudere la modale senza effetti -->
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Chiudi</button>
+                                                <!-- Vero bottone della modale che fa partire la nostra action di cancellazione chiamando il metodo delete -->
+                                                <form class="d-inline-block"
+                                                    th:action="@{/categories/delete/{id} (id=${book.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="far fa-trash-alt"></i><span>Elimina</span></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- -------------------------------------------- MODALE -------------------------------------------- -->
+
+                        </tr>
+                    </tbody>
+                </table>
+                <p th:text="'Non ci sono libri in biblioteca in questo momento...'" th:unless="${categories.size() > 0}"></p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+
+</html>
