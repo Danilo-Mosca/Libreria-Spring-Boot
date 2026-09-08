@@ -37,7 +37,10 @@
                         <tr th:each="category : ${categories}" th:object="${category}">
                             <td>[[*{id}]]</td>
                             <td>[[*{name}]]</td>
-                            <td>[[*{description}]]</td>
+                            <!-- Se category.description ha un qualche valore, allora th:if viene mostrato, mentre th:unless non viene mostrato: -->
+                            <td th:if="${category.description} != ''">[[*{description}]]</td>
+                            <!-- Se category.description è uguale a "" allora th:if è falso e non viene mostrato, mentre invece viene mostrato th:unless -->
+                            <td th:unless="${category.description} != '' ">Descrizione non presente</td>
                             <td>[[*{books.size()}]]</td>
                             <td class="align-middle">
                                 <a th:href="@{/categories/{id} (id = ${category.id})}" class="btn btn-primary btn-sm">Mostra</a>
