@@ -15,9 +15,12 @@
 
         <div class="col-12">
             <th:block>
-                <h1 class="py-4 mb-2 text-center">
+                <h1 th:if="${edit}" class="py-4 mb-2 text-center">
                     Categoria "[[${category.getName()}]]"
                     <!-- Oppure grazie alle funzionalità di thymeleaf potevo scrivere anche: [[${category.name}]] -->
+                </h1>
+                <h1 th:unless="${edit}" class="py-4 mb-2 text-center">
+                    Crea una nuova categoria
                 </h1>
                 <div class="row justify-content-center">
                     <div class="col-8">
@@ -25,41 +28,25 @@
                             th:action="${edit} ? @{|/categories/edit/${category.id}|} : @{/categories/create}"
                             method="post" th:object="${category}">
 
-                            <!-- Le informazioni sulla categoria che abbiamo selezionato, e quindi il suo id, saranno presenti qui su un input di tipo hidden (nascosto) -->
-                            <input type="hidden" name="book.id" th:value="${category.book.id}">
-
                             <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
                             <div class="mb-3">
-                                <label class="form-label" for="categoryDate">Inserisci la data del
-                                    prestito</label>
-                                <input type="date" class="form-control" name="categoryDate" id="categoryDate"
-                                    th:field="*{categoryDate}" th:errorClass="is-invalid">
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('categoryDate')}">
+                                <label class="form-label" for="name">Inserisci il nome della categoria</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                    th:field="*{name}" th:errorClass="is-invalid" placeholder="Nome categoria">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
                                     <ul>
-                                        <li th:each="error : ${#fields.errors('categoryDate')}" th:text="${error}" />
+                                        <li th:each="error : ${#fields.errors('name')}" th:text="${error}" />
                                     </ul>
                                 </div>
                             </div>
-
+                            
                             <div class="mb-3">
-                                <label class="form-label" for="returnDate">Inserisci la data di restituzione del
-                                    libro</label>
-                                <input type="date" class="form-control" name="returnDate" id="returnDate"
-                                    th:field="*{returnDate}" th:errorClass="is-invalid">
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('returnDate')}">
-                                    <ul>
-                                        <li th:each="error : ${#fields.errors('returnDate')}" th:text="${error}" />
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label" for="notes">Note</label>
-                                <textarea name="notes" class="form-control" id="notes" th:field="*{notes}"
+                                <label class="form-label" for="description">Descrizione:</label>
+                                <textarea name="description" class="form-control" id="description" th:field="*{description}"
                                     th:errorClass="is-invalid"></textarea>
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('notes')}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
                                     <ul>
-                                        <li th:each="error : ${#fields.errors('notes')}" th:text="${error}">
+                                        <li th:each="error : ${#fields.errors('description')}" th:text="${error}">
                                         </li>
                                     </ul>
                                 </div>
@@ -75,9 +62,8 @@
                                 3. type="button" evita che il bottone invii (come con submit) il form 
                                 Funziona sia in modalità create (campi già vuoti) che in modalità edit (campi popolati con dati del borrowing )-->
                                 <button type="button" class="btn btn-warning" onclick="document.getElementById('book-form').reset(); 
-                                    document.getElementById('borrowingDate').value=''; 
-                                    document.getElementById('returnDate').value=''; 
-                                    document.getElementById('notes').value='';">
+                                    document.getElementById('name').value=''; 
+                                    document.getElementById('description').value='';">
                                     Azzera i campi
                                 </button>
                             </div>

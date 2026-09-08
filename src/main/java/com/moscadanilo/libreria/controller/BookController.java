@@ -21,7 +21,6 @@ import com.moscadanilo.libreria.repository.BorrowingRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
