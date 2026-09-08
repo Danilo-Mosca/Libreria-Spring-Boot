@@ -43,7 +43,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="description">Descrizione:</label>
                                 <textarea name="description" class="form-control" id="description" th:field="*{description}"
-                                    th:errorClass="is-invalid"></textarea>
+                                    th:errorClass="is-invalid" placeholder="Descrizione categoria (opzionale)"></textarea>
                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
                                     <ul>
                                         <li th:each="error : ${#fields.errors('description')}" th:text="${error}">
