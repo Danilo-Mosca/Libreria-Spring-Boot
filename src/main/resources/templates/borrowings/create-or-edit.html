@@ -69,8 +69,18 @@
                                 <div class="mb-3 d-flex justify-content-between">
                                     <input type="submit" class="btn btn-primary" value="Salva">
                                     <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo create() in modalità GET nel controller BookController.java: @GetMapping("/create") -->
-                                    <!-- <input type="reset" class="btn btn-warning" value="Azzera i campi"> -->
-                                    <a th:href="@{/books/{id}/borrow(id=${borrowing.book.id})}" class="btn btn-warning">Azzera i campi</a>
+                                    
+                                    <!-- Reset del form per azzerare i campi. Spiegazione:
+                                         1. form.reset() ripristina i valori iniziali del form
+                                         2. Poi sovrascriviamo i singoli campi impostando value = '' per svuotarli completamente (date e textarea)
+                                         3. type="button" evita che il bottone invii (come con submit) il form  
+                                         Funziona sia in modalità create (campi già vuoti) che in modalità edit (campi popolati con dati del borrowing )-->
+                                    <button type="button" class="btn btn-warning" onclick="document.getElementById('book-form').reset(); 
+                                                 document.getElementById('borrowingDate').value=''; 
+                                                 document.getElementById('returnDate').value=''; 
+                                                 document.getElementById('notes').value='';">
+                                        Azzera i campi
+                                    </button>
                                 </div>
                             </form>
                         </div>

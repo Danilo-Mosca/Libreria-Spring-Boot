@@ -12,6 +12,81 @@
     <main class="container">
         <h1>Categories</h1>
         <hr />
+
+        <div class="col-12">
+            <th:block>
+                <h1 class="py-4 mb-2 text-center">
+                    Categoria "[[${category.getName()}]]"
+                    <!-- Oppure grazie alle funzionalità di thymeleaf potevo scrivere anche: [[${category.name}]] -->
+                </h1>
+                <div class="row justify-content-center">
+                    <div class="col-8">
+                        <form id="book-form"
+                            th:action="${edit} ? @{|/categories/edit/${category.id}|} : @{/categories/create}"
+                            method="post" th:object="${category}">
+
+                            <!-- Le informazioni sulla categoria che abbiamo selezionato, e quindi il suo id, saranno presenti qui su un input di tipo hidden (nascosto) -->
+                            <input type="hidden" name="book.id" th:value="${category.book.id}">
+
+                            <!-- Soluzione che mostra gli errori (dove presenti) nelle singole "input" -->
+                            <div class="mb-3">
+                                <label class="form-label" for="categoryDate">Inserisci la data del
+                                    prestito</label>
+                                <input type="date" class="form-control" name="categoryDate" id="categoryDate"
+                                    th:field="*{categoryDate}" th:errorClass="is-invalid">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('categoryDate')}">
+                                    <ul>
+                                        <li th:each="error : ${#fields.errors('categoryDate')}" th:text="${error}" />
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="returnDate">Inserisci la data di restituzione del
+                                    libro</label>
+                                <input type="date" class="form-control" name="returnDate" id="returnDate"
+                                    th:field="*{returnDate}" th:errorClass="is-invalid">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('returnDate')}">
+                                    <ul>
+                                        <li th:each="error : ${#fields.errors('returnDate')}" th:text="${error}" />
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="notes">Note</label>
+                                <textarea name="notes" class="form-control" id="notes" th:field="*{notes}"
+                                    th:errorClass="is-invalid"></textarea>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('notes')}">
+                                    <ul>
+                                        <li th:each="error : ${#fields.errors('notes')}" th:text="${error}">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 d-flex justify-content-between">
+                                <input type="submit" class="btn btn-primary" value="Salva">
+                                <!-- Sostituisco il pulsante type="reset" con un tag <a> che linka al metodo create() in modalità GET nel controller BookController.java: @GetMapping("/create") -->
+
+                                <!-- Reset del form per azzerare i campi. Spiegazione:
+                                1. form.reset() ripristina i valori iniziali del form
+                                2. Poi sovrascriviamo i singoli campi impostando value = '' per svuotarli completamente (date e textarea)
+                                3. type="button" evita che il bottone invii (come con submit) il form 
+                                Funziona sia in modalità create (campi già vuoti) che in modalità edit (campi popolati con dati del borrowing )-->
+                                <button type="button" class="btn btn-warning" onclick="document.getElementById('book-form').reset(); 
+                                    document.getElementById('borrowingDate').value=''; 
+                                    document.getElementById('returnDate').value=''; 
+                                    document.getElementById('notes').value='';">
+                                    Azzera i campi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
     </main>
 
     <div th:replace="~{fragments/resources :: scripts}"></div>
