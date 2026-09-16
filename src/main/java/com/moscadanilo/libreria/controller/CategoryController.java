@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,6 +34,13 @@ public class CategoryController {
     public String index(Model model){
         model.addAttribute("categories", categoryRepository.findAll());
         return "categories/index";
+    }
+
+    // Ritorna le categorie per id
+    @GetMapping("/{id}") // localhost:8080/categories/id
+    public String show(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("category", categoryRepository.findById(id).get());
+        return "/category/show";
     }
 
     /* CREAZIONE DI NUOVE CATEGORIE */
