@@ -9,9 +9,22 @@
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('categories')}"></nav>
 
-    <main class="container">
-        <h1>Categories</h1>
+    <main class="container" th:object="${category}">
+        <h1>Categoria "[[*{name}]]"</h1>
         <hr />
+
+        <section class="row">
+            <div class="col-12">
+                <h1 class="fw-bold mb-3">Categoria: [[*{name}]]</h1>
+                <h5 class="mb-3">Libri con questa categoria: [[*{books.size()}]]</h5>
+                <h2 class="mb-3">Descrizione [[*{description}]]</h2>
+                <hr />
+
+                <!-- Oppure soltanto così:
+                        <p>[[${book}]]</p>
+                        <p th:text="${book}"></p> -->
+            </div>
+        </section>
     </main>
 
     <div th:replace="~{fragments/resources :: scripts}"></div>

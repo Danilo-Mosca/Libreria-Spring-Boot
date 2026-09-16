@@ -40,7 +40,7 @@ public class CategoryController {
     @GetMapping("/{id}") // localhost:8080/categories/id
     public String show(@PathVariable("id") Integer id, Model model){
         model.addAttribute("category", categoryRepository.findById(id).get());
-        return "/category/show";
+        return "/categories/show";
     }
 
     /* CREAZIONE DI NUOVE CATEGORIE */
