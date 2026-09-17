@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.moscadanilo.libreria.model.Book;
 import com.moscadanilo.libreria.model.Category;
 import com.moscadanilo.libreria.model.Genre;
 import com.moscadanilo.libreria.repository.CategoryRepository;
@@ -58,6 +59,36 @@ public class CategoryController {
             return "/categories/create-or-edit";
         }
         // Altrimenti salvo la categoria sul database e successivamente faccio un redirect alla pagina contenente tutte le categorie
+        categoryRepository.save(formCategory);
+        return "redirect:/categories";
+    }
+
+    /* MODIFICA (UPDATE) DI CATEGORIE ESISTENTI */
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        // Passo un oggetto che conterrà il libro da modificare
+        model.addAttribute("category", categoryRepository.findById(id).get());
+        return "/categories/edit";
+    }
+    
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("category") Category formCategory, BindingResult bindingResult, Model model) {
+        // Se ho degli errori ritorno la pagina edit in GET con gli errori
+        if (bindingResult.hasErrors()) {
+            return "/categories/edit";
+        }
+
+        /* VECCHIA SOLUZIONE */
+        // Altrimenti faccio l'aggiornamento dei dati creando un oggetto di tipo Category
+        // Category category = categoryRepository.findById(id).get();
+
+        // Inserisco i valori ricevuti dal form nell'oggetto di tipo Book
+        // category.setName(formCategory.getName());
+        // category.setDescription(formCategory.getDescription());
+        // Infine salvo la categoria modificata sul database e successivamente faccio un redirect alla pagina contenente tutte le categorie
+        /* FINE VECCHIA SOLUZIONE */
+        
+        /* NUOVA SOLUZIONE MOLTO PIU' SEMPLICE */
         categoryRepository.save(formCategory);
         return "redirect:/categories";
     }
