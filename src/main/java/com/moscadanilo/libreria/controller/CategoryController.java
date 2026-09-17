@@ -68,7 +68,9 @@ public class CategoryController {
     public String edit(@PathVariable("id") Integer id, Model model) {
         // Passo un oggetto che conterrà il libro da modificare
         model.addAttribute("category", categoryRepository.findById(id).get());
-        return "/categories/edit";
+        // Restituisco un valore che verrà controllato dal form per capire se sto eseguendo una "create" o una "edit", e in tal caso il form verrà reindirizzato nella giusta pagina
+        model.addAttribute("edit", true);
+        return "/categories/create-or-edit";
     }
     
     @PostMapping("/edit/{id}")

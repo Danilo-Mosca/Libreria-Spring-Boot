@@ -3,25 +3,28 @@
 
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
-    <title>Categories</title>
+    <title>Categorie</title>
 </head>
 
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('categories')}"></nav>
 
     <main class="container">
-        <h1>Categories</h1>
+        <h1>Categorie</h1>
         <hr />
 
         <div class="col-12">
             <th:block>
+                <!-- CONTROLLO SE STO CREANDO UNA NUOVA CATEGORIA O NE STO MODIFICANDO UNA ESISTENTE. SE LA STO MODIFICANDO VISUALIZZO IL SEGUENTE TITOLO H1 -->
                 <h1 th:if="${edit}" class="py-4 mb-2 text-center">
-                    Categoria "[[${category.getName()}]]"
+                    Modifica la categoria "[[${category.getName()}]]"
                     <!-- Oppure grazie alle funzionalità di thymeleaf potevo scrivere anche: [[${category.name}]] -->
                 </h1>
+                <!-- ALTRIMENTI SE LA STO CREANDO VISUALIZZO IL SEGUENTE H1 -->
                 <h1 th:unless="${edit}" class="py-4 mb-2 text-center">
                     Crea una nuova categoria
                 </h1>
+                
                 <div class="row justify-content-center">
                     <div class="col-8">
                         <form id="book-form"
