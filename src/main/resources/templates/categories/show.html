@@ -17,7 +17,10 @@
             <div class="col-12">
                 <h3 class="fw-bold mb-3">[[*{name}]]</h3>
                 <p class="mb-3">Libri con questa categoria: [[*{books.size()}]]</p>
-                <p class="mb-3">Descrizione [[*{description}]]</p>
+                <!-- Se category.description ha un qualche valore, allora th:if viene mostrato, mentre th:unless non viene mostrato: -->
+                <p class="mb-3" th:if="${category.description} != ''">[[*{description}]]</p>
+                <!-- Se category.description è uguale a "" allora th:if è falso e non viene mostrato, mentre invece viene mostrato th:unless -->
+                <p class="mb-3" th:unless="${category.description} != '' ">Descrizione non presente</p>
                 <hr />
 
                 <!-- Oppure soltanto così:
