@@ -85,7 +85,7 @@ public class BookController {
         model.addAttribute("book", new Book());
         // Passo l'enum dei generi
         model.addAttribute("genres", Genre.values());
-        // Passo un altro oggetto contenente tutte le categorie del model Category
+        // Passo un altro oggetto contenente tutte le categorie presenti nel model Category
         model.addAttribute("categories", categoryRepository.findAll());
         return "/books/create";
     }

@@ -42,9 +42,10 @@
 
                                 <!-- Creo una checkbox relativa alle categorie dei libri -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="genre">Seleziona la categoria del libro</label>
+                                    <p class="form-label">Seleziona la categoria del libro</p>
                                     <div class="single-category form-check" th:each="category : ${categories}">
                                         <input type="checkbox" th:id="|category-${category.id}|" th:field="${book.categories}" th:value="${category.id}">
+                                        <label th:for="|category-${category.id}|" class="form-check-label" th:text="${category.name}" />
                                     </div>
                                 </div>
 
