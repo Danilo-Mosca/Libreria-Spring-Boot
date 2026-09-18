@@ -145,6 +145,24 @@ public class BookController {
         book.setAvailable(formBook.isAvailable());
         book.setNumberOfCopies(formBook.getNumberOfCopies());
         book.setDescription(formBook.getDescription());
+
+        // Modifico o aggiungo le categorie aggiornate
+        book.getCategories().clear();   // book ha dentro la sua lista di categorie (caricata dal db). Usando .clear() viene svutata quella lista in memoria: vengono tolte tutte le associazioni correnti, viene azzerato tutto.
+        // Controlla se nel form l'utente ha spuntato almeno una categoria. Se null, significa che non ha spuntato nulla → non entriamo nell'if e quindi la lista resta vuota
+        if (formBook.getCategories() != null) {
+            // Se formBook.getCategories() è diverso da null viene ripopolata la lista (ormai vuota) con le categorie nuove/selezionate dal form
+            book.getCategories().addAll(formBook.getCategories());
+        }
+
+        /*
+         * In sintesi
+         * - clear() = svuota le associazioni esistenti del libro.
+         * - if (... != null) = gestisce il caso "nessuna checkbox spuntata".
+         * - addAll(...) = rimette le categorie scelte nel form.
+         * Questo blocco copre tutti e 3 i casi: aggiungere, togliere alcune, o togliere
+         * tutte le categorie.
+         */
+
         // Infine salvo il libro modificato sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
         bookRepository.save(book);
         return "redirect:/books";

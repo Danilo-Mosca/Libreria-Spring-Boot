@@ -16,12 +16,13 @@
                 <h1 class="fw-bold mb-3">Libro: [[${book.title}]]</h1>
                 <h2 class="mb-3">Scritto da [[${book.author}]]</h2>
                 <hr />
+                
                 <!-- Sezione categorie -->
                 <!-- Blocco visualizzato se ci sono categorie associate a quel libro -->
                 <th:block th:if="${book.getCategories().size() > 0}">
                     <h3 class="mb-2">Categorie:</h3>
                     <ul class="mb-3 ps-4">
-                        <li th:each="category : *{categories}" th:text="${category.name}"></li>
+                        <li th:each="category : ${book.categories}" th:text="${category.name}"></li>
                     </ul>
                 </th:block>
                 <!-- Blocco visualizzato se il libro non contiene le categorie associate ad esso -->
@@ -29,6 +30,7 @@
                     <p class="mb-3 alert alert-info">Questo libro non ha categorie ad esso associate</p>
                 </th:block>
                 <!-- Fine sezione categorie -->
+                 
                 <h3 class="mb-3">Anno di pubblicazione: [[${book.yearOfPublication}]]</h3>
                 <h4 class="mb-3">Numero di pagine: [[${book.pages}]]</h4>
                 <h5 class="mb-3">Genere: [[${book.genre}]]</h5>
