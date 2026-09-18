@@ -96,6 +96,8 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             // Inoltre passo l'enum dei generi dei libri altrimenti questi non saranno più visibili nelle "option" della "select" al reindirizzamento nella pagina "create" con gli errori (la select del template fallisce perché ${genres} è null)
             model.addAttribute("genres", Genre.values());
+            // Passo anche un altro oggetto contenente tutte le categorie presenti nel model Category
+            model.addAttribute("categories", categoryRepository.findAll());
             return "/books/create";
         }
         // Altrimenti salvo il libro sul database e successivamente faccio un redirect alla pagina contenente tutti i libri
@@ -110,6 +112,8 @@ public class BookController {
         model.addAttribute("book", bookRepository.findById(id).get());
         // Passo l'enum dei generi
         model.addAttribute("genres", Genre.values());
+        // Passo un altro oggetto contenente tutte le categorie presenti nel model Category
+        model.addAttribute("categories", categoryRepository.findAll());
         return "/books/edit";
     }
 
@@ -125,6 +129,8 @@ public class BookController {
             // "edit" con gli errori (la select del template fallisce perché ${genres} è
             // null)
             model.addAttribute("genres", Genre.values());
+            // Passo un altro oggetto contenente tutte le categorie presenti nel model Category
+            model.addAttribute("categories", categoryRepository.findAll());
             return "/books/edit";
         }
         // Altrimenti faccio l'aggiornamento dei dati creando un oggetto di tipo Book
