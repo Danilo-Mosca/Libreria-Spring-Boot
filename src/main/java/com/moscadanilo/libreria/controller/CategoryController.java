@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.moscadanilo.libreria.model.Book;
 import com.moscadanilo.libreria.model.Category;
-import com.moscadanilo.libreria.model.Genre;
 import com.moscadanilo.libreria.repository.CategoryRepository;
 
 import jakarta.validation.Valid;
@@ -92,6 +91,25 @@ public class CategoryController {
         
         /* NUOVA SOLUZIONE MOLTO PIU' SEMPLICE */
         categoryRepository.save(formCategory);
+        return "redirect:/categories";
+    }
+
+    /* CANCELLAZIONE DI CATEGORIE ESISTENTI */
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Category categoryToDelete = categoryRepository.findById(id).get();  // prima cerco la categoria corrispondente a quell'id che voglio cancellare
+        
+        // Successivamente devo cancellare questa categoria su ogni libro che ce l'ha associata, ovvero per ogni libro che ha quella categoria associata, cancello quel campo del libro
+        for (Book linkedBook : categoryToDelete.getBooks()) {
+            // Se presente, cancello la categoria in quel libro
+            linkedBook.getCategories().remove(categoryToDelete);
+        }
+        /* ORA CHE NON HO PIU' LIBRI CORRISPONDENTI A QUELLA CATEGORIA, CANCELLO LA CATEGORIA STESSA */
+        categoryRepository.delete(categoryToDelete);    // Oppure va bene anche: categoryRepository.deleteById(id);
+        // Oppure potrei cancellare il libro con quello specifico id presente nel database grazie al metodo fornito dall'ORM Spring Data JPA
+        // categoryRepository.deleteById(id);
+
+        // Infine faccio un redirect alla pagina contenente tutte le categorie
         return "redirect:/categories";
     }
 }
