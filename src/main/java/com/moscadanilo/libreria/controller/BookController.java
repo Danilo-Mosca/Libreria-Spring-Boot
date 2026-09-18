@@ -17,6 +17,7 @@ import com.moscadanilo.libreria.model.Borrowing;
 import com.moscadanilo.libreria.model.Genre;
 import com.moscadanilo.libreria.repository.BookRepository;
 import com.moscadanilo.libreria.repository.BorrowingRepository;
+import com.moscadanilo.libreria.repository.CategoryRepository;
 
 import jakarta.validation.Valid;
 
@@ -28,14 +29,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BookController {
 
     private final BookRepository bookRepository; // dichiaro una variabile di tipo private final di BookRepository
-    private final BorrowingRepository borrowingRepository;  // dichiaro una variabile di tipo private final di BookRepositor
+    private final BorrowingRepository borrowingRepository;  // dichiaro una variabile di tipo private final di BookRepository
+    private final CategoryRepository categoryRepository;    // dichiaro una variabile di tipo private final di CategoryRepository
 
     // Iniezione via costruttore (raccomandata)
     //Iniezione dipendenze tramite costruttore ed essendo un solo costruttore si può omettere @Autowired in quanto lo farà automaticamente
     @Autowired
-    public BookController(BookRepository bookRepository, BorrowingRepository borrowingRepository) {
+    public BookController(BookRepository bookRepository, BorrowingRepository borrowingRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
         this.borrowingRepository = borrowingRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     // Ritorna tutta la lista dei libri
@@ -82,6 +85,8 @@ public class BookController {
         model.addAttribute("book", new Book());
         // Passo l'enum dei generi
         model.addAttribute("genres", Genre.values());
+        // Passo un altro oggetto contenente tutte le categorie del model Category
+        model.addAttribute("categories", categoryRepository.findAll());
         return "/books/create";
     }
 
