@@ -183,3 +183,11 @@ Note:
 - Il comando **non avvia l'applicazione** né genera il pacchetto finale (`jar`): si ferma dopo l'esecuzione dei test.
 - Le dipendenze non ancora presenti in cache vengono scaricate automaticamente dai repository remoti.
 - Per scavalcare l'esecuzione dei test durante una build si può usare `./mvnw package -DskipTests`.
+
+Per eseguire i test e avviare subito l'applicazione su http://localhost:8080 (utile per la verifica manuale), si possono concatenare i due comandi:
+
+```bash
+./mvnw test && ./mvnw spring-boot:run
+```
+
+L'applicazione viene avviata solo se tutti i test passano. In alternativa, se si usa il plugin "Spring Boot Dashboard" per VS Code, si può lanciare solo `./mvnw test` da terminale e poi avviare l'applicazione dal pannello, oppure usare il comando combinato sopra.
