@@ -171,3 +171,15 @@ Le eccezioni custom sono gestite centralmente in `GlobalExceptionHandler` (HTTP 
 ```bash
 ./mvnw test
 ```
+
+Il comando `./mvnw test` esegue la **fase `test` del ciclo di vita di Maven** utilizzando il Maven Wrapper (`mvnw`), uno script incluso nel progetto che scarica e avvia automaticamente una versione specifica di Maven, senza bisogno di averlo installato sul sistema. In dettaglio:
+
+1. **Compila il codice**: esegue le fasi precedenti del ciclo di vita, ovvero `validate`, `compile` (compilazione del codice sorgente) e `test-compile` (compilazione delle classi di test).
+2. **Esegue i test**: lancia tutti i test del progetto (unit test e test di integrazione, tipicamente JUnit) presenti in `src/test/java` (classi con suffisso `Test`, `Tests` o `TestCase`).
+3. **Riporta il risultato**: genera un report dell'esito; se tutti i test passano il comando termina con successo (exit code 0), altrimenti si interrompe con un errore (exit code ≠ 0) indicando quale test è fallito.
+
+Note:
+
+- Il comando **non avvia l'applicazione** né genera il pacchetto finale (`jar`): si ferma dopo l'esecuzione dei test.
+- Le dipendenze non ancora presenti in cache vengono scaricate automaticamente dai repository remoti.
+- Per scavalcare l'esecuzione dei test durante una build si può usare `./mvnw package -DskipTests`.
