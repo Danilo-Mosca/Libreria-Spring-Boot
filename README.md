@@ -88,7 +88,19 @@ spring.sql.init.data-locations=classpath:data.sql
 ./mvnw spring-boot:run
 ```
 
+Il comando `./mvnw spring-boot:run` avvia l'applicazione Spring Boot tramite il Maven Wrapper, senza bisogno di generare un `jar` o installare Maven sul sistema. In dettaglio:
+
+1. **Compila il codice** sorgente (fase `compile` del ciclo di vita di Maven).
+2. **Avvia il server Tomcat** incorporato in Spring Boot, leggendo la configurazione da `application.properties` e `.env` (credenziali MySQL).
+3. **Crea/aggiorna lo schema** del database (`spring.jpa.hibernate.ddl-auto=update`) e, se abilitato in configurazione, esegue `data.sql` per i dati di esempio.
+
 L'applicazione sarà disponibile su: <http://localhost:8080>
+
+Note:
+
+- La prima esecuzione può richiedere qualche istante perché scarica le dipendenze e compila il progetto.
+- Il processo resta attivo finché non viene interrotto (Ctrl+C nel terminale; con le Spring Boot Dashboard corrisponde all'arresto dal pannello).
+- Il comando non esegue i test: per quello si veda la sezione [Test](#test).
 
 ## Modello dati
 
@@ -190,4 +202,4 @@ Per eseguire i test e avviare subito l'applicazione su http://localhost:8080 (ut
 ./mvnw test && ./mvnw spring-boot:run
 ```
 
-L'applicazione viene avviata solo se tutti i test passano. In alternativa, se si usa il plugin "Spring Boot Dashboard" per VS Code, si può lanciare solo `./mvnw test` da terminale e poi avviare l'applicazione dal pannello, oppure usare il comando combinato sopra.
+L'applicazione viene avviata solo se tutti i test passano. In alternativa, se si usa il plugin "Spring Boot Dashboard" per VS Code, si può lanciare solo `./mvnw test` da terminale e poi avviare l'applicazione dal pannello, oppure usare il comando combinato sopra. Per i dettagli su come avviare l'applicazione, vedi la sezione [Esecuzione](#esecuzione).
